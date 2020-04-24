@@ -5,16 +5,19 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
 #header {
     color: aliceblue;
-    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.81);
+    box-shadow: 0 5px 6px -1px rgba(8, 8, 8, 0.81);
 }
+
 #header h1 {
     font-family: 'Monoton', cursive;
     font-weight: 300;
     font-size: 4.5em;
     padding-top: 1rem;
 }
+
 #header h5 {
     margin-top: 1.5rem;
     padding-top: 0.5rem;
@@ -23,22 +26,33 @@ body {
     border-left: #FFFFFF solid 2px;
     float: right;
 }
+
 #mainMenu {
-    align-self:  center;
-    margin-top: 2em;
+    align-self: center;
+    margin-top: 1em;
     align-content: center;
 }
+
+button, button:active, button:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: 0 solid #ccc !important;
+}
+
 button {
     background: transparent;
-    border: none;
+    border: none !important;
 }
+
 button :hover {
     transform: translateY(-10px);
     transition-duration: 1s;
 }
+
 #gameView {
     background: transparent !important;
 }
+
 #footer {
     margin-bottom: 0;
     background-color: #222222 !important;
@@ -47,6 +61,7 @@ button :hover {
     bottom: 0;
     width: 100%;
 }
+
 #footerContent {
     text-align: center;
     font-size: 30px;
@@ -55,27 +70,32 @@ button :hover {
     padding-bottom: 1rem;
     background: transparent;
 }
+
 .navbar-dark {
     background-color: #222222 !important;
 }
-#loginView h2{
+
+#registerView h2, #loginView h2 {
     /*background-color: rgb(34, 34, 34);*/
     color: #FFFFFF;
     margin-bottom: 5% !important;
     /*margin-top: 5% !important;*/
     /*margin-left: 35%;*/
 }
-#loginView img{
+
+#registerView img, #loginView img {
     margin-top: 5%;
     margin-bottom: 5%;
     /*margin-right: 40%;*/
 }
-input, textarea{
+
+input, textarea {
     outline: none;
-    box-shadow:none !important;
-    border:1px solid #ccc !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
 }
-#loginView input {
+
+#registerView input, #loginView input {
     background-color: transparent;
     color: aliceblue;
     border: none !important;
@@ -87,9 +107,11 @@ input, textarea{
     width: 70%;
     font-size: 1.1rem;
 }
-#loginView input::placeholder {
+
+#registerView input::placeholder, #loginView input::placeholder {
     color: aliceblue;
 }
+
 #loginView button {
     background-color: #222222 !important;
     width: 40%;
@@ -98,13 +120,71 @@ input, textarea{
     border: none;
     border-radius: 90px;
 }
-#loginView button:hover {
+
+#registerView button {
+    background-color: #222222 !important;
+    width: 40%;
+    margin: 20px auto;
+    display: block;
+    border: none;
+    border-radius: 90px;
+}
+
+#registerView button:hover, #loginView button:hover {
     background-color: rgba(34, 34, 34, 0.75) !important;
     color: aliceblue;
 }
-#loginView form{
+
+#registerView form, #loginView form {
     text-align: center;
     background-color: rgba(34, 34, 34, 0.51);
-    padding: 10px 0px;
+    padding: 10px 0;
+    color: aliceblue;
+    font-size: 1.2em;
 }
+
+#registerView select,
+#registerView select:active,
+#registerView select:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: 0 solid #ccc !important;
+    background-color: transparent;
+    color: aliceblue;
+    border-bottom: aliceblue solid 1px !important;
+    border-radius: 0;
+}
+
+#registerView option {
+    background-color: transparent !important;
+    color: aliceblue !important;
+}
+
+#birthday {
+    margin: 0 13% !important;
+    filter: grayscale(100%) !important;
+}
+
+#birthday .col {
+    padding: 0 2% 2%;
+    margin-top: -3px;
+}
+
+#birthday select {
+    /*margin-top: 0%;*/
+    /*margin-right: 5%;*/
+    /*margin-left: 5%;*/
+    /*margin-bottom: 0%;*/
+    padding: 6px 12px;
+    text-align: center;
+    filter: grayscale(100%) !important;
+}
+
+#birthday option {
+    background-color: #222222 !important;
+    border: 0 solid !important;
+    box-shadow: none !important;
+    filter: grayscale(100%) !important;
+}
+
 

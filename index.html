@@ -80,109 +80,76 @@
 </div>
 
 <!-- Content -->
-<!--	<div id="gameView" align="center">-->
-<!--		<div id="score">-->
-<!--			<label for="lblScore">SCORE:</label>-->
-<!--			<input id="lblScore" type="text" />-->
-<!--		</div>-->
-<!--		<div id="time">-->
-<!--			<label for="lblTime">TIME:</label>-->
-<!--			<input id="lblTime" type="text" />-->
-<!--		</div>-->
-<!--		<div id="game">-->
-<!--			<canvas id="canvas" height="600" width="600"></canvas>-->
-<!--		</div>-->
-<!--	</div>-->
-
-<!--<div id="registerView">-->
-<!--    <div class="container">-->
-<!--        <div class="row justify-content-center">-->
-<!--            <div class="col-12 col-md-8 col-lg-8 col-xl-6">-->
-<!--                <div class="row">-->
-<!--                    <div class="col text-center">-->
-<!--                        <h1>Register</h1>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--				<div class="row align-items-center mt-4">-->
-<!--					<div class="col">-->
-<!--						<input type="text" class="form-control" placeholder="User Name">-->
-<!--					</div>-->
-<!--					<div class="col">-->
-<!--						<input type="password" class="form-control" placeholder="Password">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="row align-items-center mt-4">-->
-<!--					<div class="col">-->
-<!--						<input type="email" class="form-control" placeholder="Email">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="row align-items-center mt-4">-->
-<!--					<div class="col">-->
-<!--						<input type="text" class="form-control" placeholder="First Name">-->
-<!--					</div>-->
-<!--					<div class="col">-->
-<!--						<input type="text" class="form-control" placeholder="Last Name	">-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="row align-items-center mt-4">-->
-<!--					<div class="col">-->
-<!--						<select class="custom-select" id="inputGroupSelect01">-->
-<!--							<option selected>Day</option>-->
-<!--							<option value="1">1</option>-->
-<!--							<option value="2">2</option>-->
-<!--							<option value="3">3</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--					<div class="col">-->
-<!--						<select class="custom-select" id="inputGroupSelect02">-->
-<!--							<option selected>Month</option>-->
-<!--							<option value="1">1</option>-->
-<!--							<option value="2">2</option>-->
-<!--							<option value="3">3</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--					<div class="col">-->
-<!--						<select class="custom-select" id="inputGroupSelect03">-->
-<!--							<option selected>Year</option>-->
-<!--							<option value="1">2000</option>-->
-<!--							<option value="2">2001</option>-->
-<!--							<option value="3">2002</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--                <div class="row align-items-center mt-4">-->
-<!--                    <div class="col">-->
-<!--                        <div class="form-check">-->
-<!--                            <label class="form-check-label">-->
-<!--                                <input type="checkbox" class="form-check-input">-->
-<!--                                I am brave enough to play this AMAZING GAME!-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                        <button class="btn btn-primary mt-4">Submit</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<div id="loginView">
-	<br>
-	<br>
-	<br>
-	<form class="form-signin container" style="width: 20%">
-        <img src="./resources/greenGhost.png" alt="" width="100" height="100">
-		<h2 align="center">SIGN IN</h2>
-		<label for="inputUser" class="sr-only">Email address</label>
-		<input type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-		<button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
-	</form>
-	<br>
-	<br>
+<div id="gameView" align="center" hidden>
+    <div id="score">
+        <label for="lblScore">SCORE:</label>
+        <input id="lblScore" type="text"/>
+    </div>
+    <div id="time">
+        <label for="lblTime">TIME:</label>
+        <input id="lblTime" type="text"/>
+    </div>
+    <div id="game">
+        <canvas id="canvas" height="600" width="600"></canvas>
+    </div>
 </div>
 
+<div id="registerView" hidden>
+    <br>
+    <form class="container" style="width: 20%">
+        <img src="./resources/blueGhost.png" alt="" width="100" height="100">
+        <h2>REGISTER</h2>
+        <input type="text" class="form-control" placeholder="User Name">
+        <input type="password" class="form-control" placeholder="Password">
+        <input type="email" class="form-control" placeholder="Email">
+        <input type="text" class="form-control" placeholder="Full Name">
+        Birth Day
+        <div class="row align-items-center mt-4" id="birthday">
+            <div class="col">
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>Day</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="custom-select" id="inputGroupSelect02">
+                    <option selected>Month</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="custom-select" id="inputGroupSelect03">
+                    <option selected>Year</option>
+                    <option value="1">2000</option>
+                    <option value="2">2001</option>
+                    <option value="3">2002</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-dark btn-block">SUBMIT</button>
+    </form>
+</div>
+
+<div id="loginView" hidden>
+    <br>
+    <br>
+    <br>
+    <form class="form-signin container" style="width: 20%">
+        <img src="./resources/greenGhost.png" alt="" width="100" height="100">
+        <h2 align="center">SIGN IN</h2>
+        <label for="inputUser" class="sr-only">Email address</label>
+        <input type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
+    </form>
+    <br>
+    <br>
+</div>
 
 <!-- Content -->
 <br>
