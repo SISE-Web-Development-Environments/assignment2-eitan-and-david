@@ -186,5 +186,13 @@ input, textarea {
     box-shadow: none !important;
     filter: grayscale(100%) !important;
 }
+#mainMenu h5 {
+    color: aliceblue;
+}
+#mainMenu h5:hover {
+    transform: translateY(0);
+}
+
+
 
 
