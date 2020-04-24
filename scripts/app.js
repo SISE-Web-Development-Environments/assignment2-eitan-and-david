@@ -169,4 +169,8 @@ function UpdatePosition() {
 	} else {
 		Draw();
 	}
+
+	function showAbout() {
+		document.getElementById("AAA").showModel();
+	}
 }

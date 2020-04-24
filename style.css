@@ -1,8 +1,8 @@
 body {
-    /*background-image: url("./resources/background.jpg");*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: cover;*/
-    background: #d5d5d5;
+    background-image: url("./resources/pac_man_background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background: #d5d5d5;*/
 }
 #header {
     color: aliceblue;
