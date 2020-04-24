@@ -1,11 +1,27 @@
 body {
-    background-image: url("./resources/pac_man_background.jpg");
-    background-repeat: no-repeat;
+    background: url("./resources/background.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    /*background: #d5d5d5;*/
 }
 #header {
     color: aliceblue;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.81);
+}
+#header h1 {
+    font-family: 'Monoton', cursive;
+    font-weight: 300;
+    font-size: 4.5em;
+    padding-top: 1rem;
+}
+#header h5 {
+    margin-top: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    border-left: #FFFFFF solid 2px;
+    float: right;
 }
 #mainMenu {
     align-self:  center;
@@ -17,22 +33,78 @@ button {
     border: none;
 }
 button :hover {
-    transform: scale(1.05);
+    transform: translateY(-10px);
     transition-duration: 1s;
 }
 #gameView {
     background: transparent !important;
 }
-#footer{
+#footer {
     margin-bottom: 0;
-    padding-top: 1rem;
-    background: #76736f;
+    background-color: #222222 !important;
+    color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
-#footerContent{
+#footerContent {
     text-align: center;
+    font-size: 30px;
     margin-bottom: 0;
     padding-top: 1rem;
     padding-bottom: 1rem;
     background: transparent;
+}
+.navbar-dark {
+    background-color: #222222 !important;
+}
+#loginView h2{
+    /*background-color: rgb(34, 34, 34);*/
+    color: #FFFFFF;
+    margin-bottom: 5% !important;
+    /*margin-top: 5% !important;*/
+    /*margin-left: 35%;*/
+}
+#loginView img{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    /*margin-right: 40%;*/
+}
+input, textarea{
+    outline: none;
+    box-shadow:none !important;
+    border:1px solid #ccc !important;
+}
+#loginView input {
+    background-color: transparent;
+    color: aliceblue;
+    border: none !important;
+    border-bottom: aliceblue solid 1px !important;
+    border-radius: 0;
+    margin-left: 15% !important;
+    margin-bottom: 1% !important;
+    margin-right: 15% !important;
+    width: 70%;
+    font-size: 1.1rem;
+}
+#loginView input::placeholder {
+    color: aliceblue;
+}
+#loginView button {
+    background-color: #222222 !important;
+    width: 40%;
+    margin: 20px auto;
+    display: block;
+    border: none;
+    border-radius: 90px;
+}
+#loginView button:hover {
+    background-color: rgba(34, 34, 34, 0.75) !important;
+    color: aliceblue;
+}
+#loginView form{
+    text-align: center;
+    background-color: rgba(34, 34, 34, 0.51);
+    padding: 10px 0px;
 }
 
