@@ -169,8 +169,23 @@ function UpdatePosition() {
 	} else {
 		Draw();
 	}
-
-	function showAbout() {
-		document.getElementById("AAA").showModel();
-	}
 }
+
+var currentPage = {
+	newPageName: "loginView",
+	oldPageName: undefined,
+	setPageName: function(newName) {
+		if (newName === "registerView"){
+			document.getElementById("registerForm").reset();
+		}
+		this.oldPageName = this.newPageName;
+		this.newPageName = newName;
+	}
+};
+
+function changeDiv(){
+	document.getElementById(currentPage.oldPageName).hidden = true;
+	document.getElementById(currentPage.newPageName).hidden = false;
+
+}
+

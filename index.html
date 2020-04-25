@@ -39,17 +39,17 @@
             <br>
             <h5>PLAY</h5>
         </button>
-        <button type="button">
+        <button type="button" id="logIn">
             <img src="./resources/greenGhost.png" alt="" width="100" height="100">
             <br>
             <h5>LOGIN</h5>
         </button>
-        <button type="button">
+        <button type="button" id="register">
             <img src="./resources/blueGhost.png" alt="" width="100" height="100">
             <br>
             <h5>REGISTER</h5>
         </button>
-        <button type="button">
+        <button type="button" id="settings">
             <img src="./resources/redGhost.png" alt="" width="100" height="100">
             <br>
             <h5>SETTINGS</h5>
@@ -101,17 +101,17 @@
 
 <div id="registerView" hidden>
     <br>
-    <form class="container" style="width: 20%">
+    <form id="registerForm" class="container" style="width: 20%">
         <img src="./resources/blueGhost.png" alt="" width="100" height="100">
         <h2>REGISTER</h2>
-        <input type="text" class="form-control" placeholder="User Name">
-        <input type="password" class="form-control" placeholder="Password">
-        <input type="email" class="form-control" placeholder="Email">
-        <input type="text" class="form-control" placeholder="Full Name">
+        <input type="text" class="form-control" placeholder="User Name" required>
+        <input type="password" class="form-control" placeholder="Password" required>
+        <input id="email" type="text" class="form-control" placeholder="Email" required>
+        <input type="text" class="form-control" placeholder="Full Name" required>
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect01">
+                <select class="custom-select" id="inputGroupSelect01" required>
                     <option selected>Day</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -119,7 +119,7 @@
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect02">
+                <select class="custom-select" id="inputGroupSelect02" required>
                     <option selected>Month</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -127,7 +127,7 @@
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect03">
+                <select class="custom-select" id="inputGroupSelect03" required>
                     <option selected>Year</option>
                     <option value="1">2000</option>
                     <option value="2">2001</option>
@@ -138,6 +138,27 @@
         <button class="btn btn-lg btn-dark btn-block">SUBMIT</button>
     </form>
 </div>
+
+<div id="settingsView" hidden>
+    <br>
+    <form class="container" style="width: 20%">
+        <img align="center" src="./resources/redGhost.png" alt="" width="100" height="100">
+        <h2>SETTINGS</h2>
+        <h4>Keys SetUp</h4>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set left" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set right" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set up" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set down" required>
+        <h4>Balls SetUp</h4>
+        <input type="range" value="50" min="50" max="90" class="form-control">
+        <input type="color" class="form-control" required>
+        <input type="color" class="form-control" required>
+        <input type="color" class="form-control" required>
+
+        <button class="btn btn-lg btn-dark btn-block">SUBMIT</button>
+    </form>
+</div>
+
 
 <div id="loginView" hidden>
     <br>
@@ -156,6 +177,8 @@
     <br>
 </div>
 
+
+
 <!-- Content -->
 <br>
 <!-- Footer -->
@@ -165,12 +188,52 @@
         <h6> Created By Eitan and David LTD</h6>
     </div>
 </div>
+<script type="text/javascript">
+    document.getElementById("register").addEventListener('click',function () {
+        currentPage.setPageName("registerView");
+        changeDiv();
+    });
 
-<script>
-    function myFunction() {
-        document.getElementById("About").showModal();
+    document.getElementById("logIn").addEventListener('click',function () {
+        currentPage.setPageName("loginView");
+        changeDiv();
+    });
+
+    document.getElementById("settings").addEventListener('click',function () {
+        currentPage.setPageName("settingsView");
+        changeDiv();
+    });
+
+    $(document).ready(function () {
+        $("#email").keyup(function(){
+            if(validateEmail()){
+                alert("asdsadsadsad");
+                // if the email is validated
+                // set input email border green
+                $("#email").css("border","2px solid green");
+                // and set label
+            }else{
+                alert("asdsadsadsad");
+                // if the email is not validated
+                // set border red
+                $("#email").css("border","2px solid red");
+            }
+        });
+    })
+
+    function validateEmail(){
+        // get value of input email
+        var email=$("#email").val();
+        // use reular expression
+        var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        if(reg.test(email)){
+            return true;
+        }else{
+            return false;
+        }
     }
 </script>
+
 <!-- Footer -->
 </body>
 </html>
