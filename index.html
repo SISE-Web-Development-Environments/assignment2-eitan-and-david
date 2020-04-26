@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
@@ -104,10 +105,10 @@
     <form id="registerForm" class="container" style="width: 20%">
         <img src="./resources/blueGhost.png" alt="" width="100" height="100">
         <h2>REGISTER</h2>
-        <input type="text" class="form-control" placeholder="User Name" required>
-        <input type="password" class="form-control" placeholder="Password" required>
-        <input id="email" type="text" class="form-control" placeholder="Email" required>
-        <input type="text" class="form-control" placeholder="Full Name" required>
+        <input id="form_username" type="text" class="form-control" placeholder="User Name" required><span id="username_error_message"></span>
+        <input id="form_password" type="password" class="form-control" placeholder="Password" required><span id="password_error_message"></span>
+        <input id="form_email" type="text" class="form-control" placeholder="Email" required><span id="email_error_message"></span>
+        <input id="form_fullName" type="text" class="form-control" placeholder="Full Name" required><span id="fullname_error_message"></span>
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
@@ -135,7 +136,7 @@
                 </select>
             </div>
         </div>
-        <button class="btn btn-lg btn-dark btn-block">SUBMIT</button>
+        <button class="btn btn-lg btn-dark btn-block" id="submit">SUBMIT</button>
     </form>
 </div>
 
@@ -188,6 +189,7 @@
         <h6> Created By Eitan and David LTD</h6>
     </div>
 </div>
+<!-- Footer -->
 <script type="text/javascript">
     document.getElementById("register").addEventListener('click',function () {
         currentPage.setPageName("registerView");
@@ -204,37 +206,125 @@
         changeDiv();
     });
 
-    $(document).ready(function () {
-        $("#email").keyup(function(){
-            if(validateEmail()){
-                alert("asdsadsadsad");
-                // if the email is validated
-                // set input email border green
-                $("#email").css("border","2px solid green");
-                // and set label
-            }else{
-                alert("asdsadsadsad");
-                // if the email is not validated
-                // set border red
-                $("#email").css("border","2px solid red");
-            }
-        });
-    })
+    $(function() {
 
-    function validateEmail(){
-        // get value of input email
-        var email=$("#email").val();
-        // use reular expression
-        var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-        if(reg.test(email)){
-            return true;
-        }else{
-            return false;
-        }
+$("#username_error_message").hide();
+$("#password_error_message").hide();
+$("#email_error_message").hide();
+
+var error_username = false;
+var error_password = false;
+var error_email = false;
+
+$("#form_username").focusout(function() {
+
+    check_username();
+    
+});
+
+$("#form_password").focusout(function() {
+
+    check_password();
+    
+});
+
+$("#form_email").focusout(function() {
+
+    check_email();
+    
+});
+
+$("#form_fullname").focusout(function() {
+
+check_fullname();
+
+});
+
+function check_username() {
+
+    var username_length = $("#form_username").val().length;
+    
+    if(username_length < 5 || username_length > 20) {
+        $("#username_error_message").html("Should be between 5-20 characters");
+        $("#username_error_message").show();
+        error_username = true;
+    } else {
+        $("#username_error_message").hide();
     }
-</script>
 
-<!-- Footer -->
+}
+
+function check_fullname() {
+var username_length = $("#form_fullname").val().length;
+var letters =  /^[a-zA-Z]+$/;
+var fullname = $("#form_fullname").val();  
+var result =  letters.test(password);  
+var fName = fullName.split(" ");
+var result1 = letters.test(fName[0]);
+var result2 = letters.test(fName[1]);
+if(!result1 && !result2) {
+    $("#fullname_error_message").html("Should be between 5-20 characters");
+    $("#fullname_error_message").show();
+    error_username = true;
+} else {
+    $("#fullname_error_message").hide();
+}
+
+}
+
+function check_password() {
+	var letters =  /^[0-9a-zA-Z]+$/;
+    var password = $("#form_password").val();  
+    var result =   letters.test(password);  
+    var password_length = $("#form_password").val().length;
+    if(password_length < 6) {
+        $("#password_error_message").html("At least 8 characters");
+        $("#password_error_message").show();
+        error_password = true;
+    }else if(!result){
+        $("#password_error_message").html("At least 18 characters");
+        $("#password_error_message").show();
+    } 
+    else {
+        $("#password_error_message").hide();
+    }
+}
+
+function check_email() {
+
+    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+
+    if(pattern.test($("#form_email").val())) {
+        $("#email_error_message").hide();
+    } else {
+        $("#email_error_message").html("Invalid email address");
+        $("#email_error_message").show();
+        error_email = true;
+    }
+
+}
+
+$("#registerForm").submit(function() {
+                                        
+    error_username = false;
+    error_password = false;
+    error_email = false;
+                                        
+    check_username();
+    check_password();
+    check_email();
+    
+    if(error_username == false && error_password == false && error_email == false) {
+        return true;
+    } else {
+        return false;	
+    }
+
+});
+
+});
+
+</script>
 </body>
 </html>
 

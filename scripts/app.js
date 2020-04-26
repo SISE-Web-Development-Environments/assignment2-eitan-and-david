@@ -189,3 +189,13 @@ function changeDiv(){
 
 }
 
+function isAlphaNumeric(password){
+	var reg_password1 = $('#form_password').val();
+	var letters = /([a-z])([0-9])/;
+	if ( ! reg_password1.value.match(letters) )   
+  {   
+    return true
+  } 
+
+}
+
