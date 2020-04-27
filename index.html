@@ -69,8 +69,10 @@
 <div id="Welcome" align="center">
     <button type="button" id="welcome_register">
         <img src="./resources/pacman.png" alt="" width="50%">
+    </button>
     <button type="button" id="welcome_login">
         <img src="./resources/pacwoman.png" alt="" width="50%">
+    </button>
 </div>
 <!-- Welcome -->
 
@@ -114,13 +116,13 @@
     <br>
     <br>
     <br>
-    <form class="form-signin container" style="width: 20%">
+    <form id="loginForm" class="form-signin container" style="width: 20%">
         <img src="./resources/greenGhost.png" alt="" width="100" height="100">
         <h2 align="center">SIGN IN</h2>
-        <label for="inputUser" class="sr-only">Email address</label>
-        <input type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <label for="loginForm_username" class="sr-only">Email address</label>
+        <input type="text" id="loginForm_username" class="form-control" placeholder="User Name" required="" autofocus="">
+        <label for="loginForm_password" class="sr-only">Password</label>
+        <input type="password" id="loginForm_password" class="form-control" placeholder="Password" required="">
         <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
     </form>
     <br>
@@ -293,68 +295,6 @@
         changeDiv();
     });
 
-function check_username() {
-
-    var username_length = $("#form_username").val().length;
-    
-    if(username_length < 5 || username_length > 20) {
-        $("#username_error_message").html("Should be between 5-20 characters");
-        $("#username_error_message").show();
-        error_username = true;
-    } else {
-        $("#username_error_message").hide();
-    }
-
-}
-
-function check_fullname() {
-var username_length = $("#form_fullname").val().length;
-var letters =  /^[a-zA-Z]+$/;
-var fullname = $("#form_fullname").val();  
-var result =  letters.test(password);  
-var fName = fullName.split(" ");
-var result1 = letters.test(fName[0]);
-var result2 = letters.test(fName[1]);
-if(!result1 && !result2) {
-    $("#fullname_error_message").html("Should be between 5-20 characters");
-    $("#fullname_error_message").show();
-    error_username = true;
-} else {
-    $("#fullname_error_message").hide();
-}
-
-}
-
-function check_password() {
-	var letters =  /^[0-9a-zA-Z]+$/;
-    var password = $("#form_password").val();  
-    var result =   letters.test(password);  
-    var password_length = $("#form_password").val().length;
-    if(password_length < 6) {
-        $("#password_error_message").html("At least 8 characters");
-        $("#password_error_message").show();
-        error_password = true;
-    }else if(!result){
-        $("#password_error_message").html("At least 18 characters");
-        $("#password_error_message").show();
-    } 
-    else {
-        $("#password_error_message").hide();
-    }
-}
-
-function check_email() {
-
-    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
-
-    if(pattern.test($("#form_email").val())) {
-        $("#email_error_message").hide();
-    } else {
-        $("#email_error_message").html("Invalid email address");
-        $("#email_error_message").show();
-        error_email = true;
-    }
-
     document.getElementById("play").addEventListener('click',function () {
         if(signedIn){
             currentPage.setPageName("gameView");
@@ -362,8 +302,6 @@ function check_email() {
         }else{
             alert("Please sign in first");
         }
-
-    });
 
     });
 
