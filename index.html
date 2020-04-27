@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Monoton&display=swap" rel="stylesheet">
     <script src="scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -33,9 +34,9 @@
 <!-- Header - LOGO and App Name	-->
 
 <!-- Menu -->
-<div id="mainMenu">
+<div id="mainMenu" hidden>
     <div align="center">
-        <button type="button">
+        <button type="button" id="play">
             <img src="./resources/yellowGhost.png" alt="" width="100" height="100">
             <br>
             <h5>PLAY</h5>
@@ -63,6 +64,15 @@
     </div>
 </div>
 <!-- Menu -->
+
+<!-- Welcome -->
+<div id="Welcome" align="center">
+    <button type="button" id="welcome_register">
+        <img src="./resources/pacman.png" alt="" width="50%">
+    <button type="button" id="welcome_login">
+        <img src="./resources/pacwoman.png" alt="" width="50%">
+</div>
+<!-- Welcome -->
 
 <!-- About	-->
 <div class="container">
@@ -105,10 +115,11 @@
     <form id="registerForm" class="container" style="width: 20%">
         <img src="./resources/blueGhost.png" alt="" width="100" height="100">
         <h2>REGISTER</h2>
-        <input id="form_username" type="text" class="form-control" placeholder="User Name" required><span id="username_error_message"></span>
+        <input id="form_username" type="text" class="form-control" placeholder="User Name" required>
         <input id="form_password" type="password" class="form-control" placeholder="Password" required><span id="password_error_message"></span>
         <input id="form_email" type="text" class="form-control" placeholder="Email" required><span id="email_error_message"></span>
-        <input id="form_fullName" type="text" class="form-control" placeholder="Full Name" required><span id="fullname_error_message"></span>
+        <input id="form_fName" type="text" class="form-control" placeholder="First Name" required><span id="fname_error_message"></span>
+        <input id="form_lName" type="text" class="form-control" placeholder="Last Name" required><span id="lname_error_message"></span>
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
@@ -165,13 +176,13 @@
     <br>
     <br>
     <br>
-    <form class="form-signin container" style="width: 20%">
+    <form id="loginForm" class="form-signin container" style="width: 20%">
         <img src="./resources/greenGhost.png" alt="" width="100" height="100">
         <h2 align="center">SIGN IN</h2>
         <label for="inputUser" class="sr-only">Email address</label>
-        <input type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
+        <input id="loginForm_username" type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <input id="loginForm_password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
         <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
     </form>
     <br>
@@ -206,123 +217,30 @@
         changeDiv();
     });
 
-    $(function() {
+    document.getElementById("welcome_register").addEventListener('click',function () {
+        currentPage.setPageName("registerView");
+        document.getElementById("mainMenu").hidden = false;
+        changeDiv();
+    });
 
-$("#username_error_message").hide();
-$("#password_error_message").hide();
-$("#email_error_message").hide();
+    document.getElementById("welcome_login").addEventListener('click',function () {
+        currentPage.setPageName("loginView");
+        document.getElementById("mainMenu").hidden = false;
+        changeDiv();
+    });
 
-var error_username = false;
-var error_password = false;
-var error_email = false;
 
-$("#form_username").focusout(function() {
+    document.getElementById("play").addEventListener('click',function () {
+        if(signedIn){
+            currentPage.setPageName("gameView");
+            changeDiv();
+        }else{
+            alert("Please sign in first");
+        }
+       
+    });
 
-    check_username();
-    
-});
 
-$("#form_password").focusout(function() {
-
-    check_password();
-    
-});
-
-$("#form_email").focusout(function() {
-
-    check_email();
-    
-});
-
-$("#form_fullname").focusout(function() {
-
-check_fullname();
-
-});
-
-function check_username() {
-
-    var username_length = $("#form_username").val().length;
-    
-    if(username_length < 5 || username_length > 20) {
-        $("#username_error_message").html("Should be between 5-20 characters");
-        $("#username_error_message").show();
-        error_username = true;
-    } else {
-        $("#username_error_message").hide();
-    }
-
-}
-
-function check_fullname() {
-var username_length = $("#form_fullname").val().length;
-var letters =  /^[a-zA-Z]+$/;
-var fullname = $("#form_fullname").val();  
-var result =  letters.test(password);  
-var fName = fullName.split(" ");
-var result1 = letters.test(fName[0]);
-var result2 = letters.test(fName[1]);
-if(!result1 && !result2) {
-    $("#fullname_error_message").html("Should be between 5-20 characters");
-    $("#fullname_error_message").show();
-    error_username = true;
-} else {
-    $("#fullname_error_message").hide();
-}
-
-}
-
-function check_password() {
-	var letters =  /^[0-9a-zA-Z]+$/;
-    var password = $("#form_password").val();  
-    var result =   letters.test(password);  
-    var password_length = $("#form_password").val().length;
-    if(password_length < 6) {
-        $("#password_error_message").html("At least 8 characters");
-        $("#password_error_message").show();
-        error_password = true;
-    }else if(!result){
-        $("#password_error_message").html("At least 18 characters");
-        $("#password_error_message").show();
-    } 
-    else {
-        $("#password_error_message").hide();
-    }
-}
-
-function check_email() {
-
-    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
-
-    if(pattern.test($("#form_email").val())) {
-        $("#email_error_message").hide();
-    } else {
-        $("#email_error_message").html("Invalid email address");
-        $("#email_error_message").show();
-        error_email = true;
-    }
-
-}
-
-$("#registerForm").submit(function() {
-                                        
-    error_username = false;
-    error_password = false;
-    error_email = false;
-                                        
-    check_username();
-    check_password();
-    check_email();
-    
-    if(error_username == false && error_password == false && error_email == false) {
-        return true;
-    } else {
-        return false;	
-    }
-
-});
-
-});
 
 </script>
 </body>

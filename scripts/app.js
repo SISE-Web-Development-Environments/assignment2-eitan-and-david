@@ -7,6 +7,17 @@ var start_time;
 var time_elapsed;
 var interval;
 
+var controls = {
+	left: undefined,
+	right: undefined,
+	up: undefined,
+	down: undefined
+};
+
+const usersDB =[];
+
+var signedIn = false;
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
@@ -171,15 +182,33 @@ function UpdatePosition() {
 	}
 }
 
+
+
 var currentPage = {
-	newPageName: "loginView",
+	newPageName: "Welcome",
 	oldPageName: undefined,
 	setPageName: function(newName) {
 		if (newName === "registerView"){
 			document.getElementById("registerForm").reset();
+			$("#password_error_message").hide();
+			$("#email_error_message").hide();
+			$("#fname_error_message").hide();
+			$("#lname_error_message").hide();
 		}
+
+		if(newName === "loginView"){
+			document.getElementById("loginForm").reset();
+		}
+		
 		this.oldPageName = this.newPageName;
 		this.newPageName = newName;
+	}
+};
+
+var currentUser = {
+	userName: undefined,
+	setUserName: function(NewUserName){
+		this.userName = NewUserName;
 	}
 };
 
@@ -189,13 +218,141 @@ function changeDiv(){
 
 }
 
-function isAlphaNumeric(password){
-	var reg_password1 = $('#form_password').val();
-	var letters = /([a-z])([0-9])/;
-	if ( ! reg_password1.value.match(letters) )   
-  {   
-    return true
-  } 
+$(function() {
 
-}
+	$("#password_error_message").hide();
+	$("#email_error_message").hide();
+	$("#fname_error_message").hide();
+	$("#lname_error_message").hide();
+	var error_password = false;
+	var error_email = false;
+	var error_lname = false;
+	var error_fname = false;
+	
+	
+	
+	function check_password() {
+		var letters =  /^[0-9a-zA-Z]+$/;
+		var password = $("#form_password").val();  
+		var result =   letters.test(password);
+		var password_length = $("#form_password").val().length;
+		if(password_length < 6) {
+			$("#password_error_message").html("At least 8 characters");
+			$("#password_error_message").show();
+			error_password = true;
+		}else if(!result){
+			$("#password_error_message").html("must contain only letters and numbers");
+			$("#password_error_message").show();
+			error_password = true;
+		} 
+		else {
+			$("#password_error_message").hide();
+		}
+	}
+	
+	function fname_check(){
+		var result = undefined;
+		if(!/^[a-zA-Z\s]+$/.test($('#form_fName').val()))
+		{
+			$("#fname_error_message").html("must contain only letters");
+			$("#fname_error_message").show();
+			error_fname = true;
+		}else{
+			$("#fname_error_message").hide();
+		}
+	}
+	
+	function lname_check(){
+		var result = undefined;
+		if(!/^[a-zA-Z\s]+$/.test($('#form_lName').val()))
+		{
+			$("#lname_error_message").html("must contain only letters");
+			$("#lname_error_message").show();
+			error_lname = true;
+		}else{
+			$("#lname_error_message").hide();
+		}
+	}
+	
+	function check_email() {
+		var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+		if(pattern.test($("#form_email").val())) {
+			$("#email_error_message").hide();
+		} else {
+			$("#email_error_message").html("Invalid email address");
+			$("#email_error_message").show();
+			error_email = true;
+		}
+	
+	}
+	
+	$("#registerForm").submit(function(e) {                       
+		error_password = false;
+		error_email = false;
+		error_lname = false;
+		error_fname = false;
+		fname_check();
+		lname_check();                                    
+		check_password();
+		check_email();
+		if(error_password == false && error_email == false && error_lname == false && error_fname == false) {
+			var password = document.getElementById("form_password").value;
+			var username = document.getElementById("form_username").value;
+			var player = {userName:username,password:password};
+			var userExist = false;
+			usersDB.forEach(element=>{ 
+				if(element.userName === username){
+					userExist = true;
+				}
+			});
+			if(userExist){
+				alert("There is already user with the same username");
+				e.preventDefault();
+				
+			}else{
+				usersDB.push(player);;
+				alert("Registered successfully!!");
+				e.preventDefault();
+				currentPage.setPageName("Welcome");
+				changeDiv();
+				
+			}
+		} else {
+			return false;
+		}
+	
+	});
+	
+	});
+
+	$(function(){
+		$("#loginForm").submit(function(e){
+			var password = document.getElementById("loginForm_password").value;
+			var username = document.getElementById("loginForm_username").value;
+			var userExist = false;
+			usersDB.forEach(element=>{ 
+				if(element.userName === username && element.password === password){
+					userExist = true;
+					currentUser.setUserName(element.userName);
+				}
+			});
+			if(userExist){
+				alert("Signed in successfully!!");
+				e.preventDefault();
+				currentPage.setPageName("Welcome");
+				changeDiv();
+				signedIn = true;
+			}else{
+				alert("Incorrect user or password");
+				e.preventDefault();
+			}
+		});
+	});
+
+	
+
+	
+
+
+
 
