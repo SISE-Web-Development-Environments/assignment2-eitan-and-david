@@ -44,10 +44,6 @@ button {
     border: none !important;
 }
 
-#welcome_register input{
-    border: none;
-}
-
 button :hover {
     transform: translateY(-10px);
     transition-duration: 1s;

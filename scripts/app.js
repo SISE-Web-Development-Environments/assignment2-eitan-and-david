@@ -182,8 +182,6 @@ function UpdatePosition() {
 	}
 }
 
-
-
 var currentPage = {
 	newPageName: "Welcome",
 	oldPageName: undefined,
@@ -199,7 +197,7 @@ var currentPage = {
 		if(newName === "loginView"){
 			document.getElementById("loginForm").reset();
 		}
-		
+
 		this.oldPageName = this.newPageName;
 		this.newPageName = newName;
 	}
@@ -228,12 +226,12 @@ $(function() {
 	var error_email = false;
 	var error_lname = false;
 	var error_fname = false;
-	
-	
-	
+
+
+
 	function check_password() {
 		var letters =  /^[0-9a-zA-Z]+$/;
-		var password = $("#form_password").val();  
+		var password = $("#form_password").val();
 		var result =   letters.test(password);
 		var password_length = $("#form_password").val().length;
 		if(password_length < 6) {
@@ -244,12 +242,12 @@ $(function() {
 			$("#password_error_message").html("must contain only letters and numbers");
 			$("#password_error_message").show();
 			error_password = true;
-		} 
+		}
 		else {
 			$("#password_error_message").hide();
 		}
 	}
-	
+
 	function fname_check(){
 		var result = undefined;
 		if(!/^[a-zA-Z\s]+$/.test($('#form_fName').val()))
@@ -261,7 +259,7 @@ $(function() {
 			$("#fname_error_message").hide();
 		}
 	}
-	
+
 	function lname_check(){
 		var result = undefined;
 		if(!/^[a-zA-Z\s]+$/.test($('#form_lName').val()))
@@ -273,7 +271,7 @@ $(function() {
 			$("#lname_error_message").hide();
 		}
 	}
-	
+
 	function check_email() {
 		var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 		if(pattern.test($("#form_email").val())) {
@@ -283,16 +281,16 @@ $(function() {
 			$("#email_error_message").show();
 			error_email = true;
 		}
-	
+
 	}
-	
-	$("#registerForm").submit(function(e) {                       
+
+	$("#registerForm").submit(function(e) {
 		error_password = false;
 		error_email = false;
 		error_lname = false;
 		error_fname = false;
 		fname_check();
-		lname_check();                                    
+		lname_check();
 		check_password();
 		check_email();
 		if(error_password == false && error_email == false && error_lname == false && error_fname == false) {
@@ -300,7 +298,7 @@ $(function() {
 			var username = document.getElementById("form_username").value;
 			var player = {userName:username,password:password};
 			var userExist = false;
-			usersDB.forEach(element=>{ 
+			usersDB.forEach(element=>{
 				if(element.userName === username){
 					userExist = true;
 				}
@@ -308,21 +306,21 @@ $(function() {
 			if(userExist){
 				alert("There is already user with the same username");
 				e.preventDefault();
-				
+
 			}else{
 				usersDB.push(player);;
 				alert("Registered successfully!!");
 				e.preventDefault();
 				currentPage.setPageName("Welcome");
 				changeDiv();
-				
+
 			}
 		} else {
 			return false;
 		}
-	
+
 	});
-	
+
 	});
 
 	$(function(){
@@ -330,7 +328,7 @@ $(function() {
 			var password = document.getElementById("loginForm_password").value;
 			var username = document.getElementById("loginForm_username").value;
 			var userExist = false;
-			usersDB.forEach(element=>{ 
+			usersDB.forEach(element=>{
 				if(element.userName === username && element.password === password){
 					userExist = true;
 					currentUser.setUserName(element.userName);
@@ -349,10 +347,48 @@ $(function() {
 		});
 	});
 
-	
-
-	
 
 
 
 
+
+
+
+// MY FUNCTIONS
+let moveUp;
+let moveDown;
+let moveRight;
+let moveLeft;
+
+function test(e,id) {
+	e.preventDefault();
+	let newKey = this.addEventListener("keypress", keyUpdateListener);
+	switch (id) {
+		case "buttonU":
+			moveUp = newKey;
+			break;
+		case "buttonL":
+			moveLeft = newKey;
+			break;
+		case "buttonD":
+			moveDown = newKey;
+			break;
+		case "buttonR":
+			moveRight = newKey;
+			break;
+	}
+}
+
+let keyUpdateListener = function (event) {
+	removeUpdateListener();
+	return event.keyCode;
+};
+
+function removeUpdateListener(){
+	this.removeEventListener("keypress", keyUpdateListener);
+}
+
+function copyData(element, target) {
+	document.getElementById(target).textContent = element.value;
+}
+// MY FUNCTIONS
