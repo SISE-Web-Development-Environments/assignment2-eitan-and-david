@@ -7,6 +7,7 @@ var start_time;
 var time_elapsed;
 var interval;
 
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
@@ -199,3 +200,41 @@ function isAlphaNumeric(password){
 
 }
 
+// MY FUNCTIONS
+let moveUp;
+let moveDown;
+let moveRight;
+let moveLeft;
+
+function test(e,id) {
+	e.preventDefault();
+	let newKey = this.addEventListener("keypress", keyUpdateListener);
+	switch (id) {
+		case "buttonU":
+			moveUp = newKey;
+			break;
+		case "buttonL":
+			moveLeft = newKey;
+			break;
+		case "buttonD":
+			moveDown = newKey;
+			break;
+		case "buttonR":
+			moveRight = newKey;
+			break;
+	}
+}
+
+let keyUpdateListener = function (event) {
+	removeUpdateListener();
+	return event.keyCode;
+};
+
+function removeUpdateListener(){
+	this.removeEventListener("keypress", keyUpdateListener);
+}
+
+function copyData(element, target) {
+	document.getElementById(target).textContent = element.value;
+}
+// MY FUNCTIONS
