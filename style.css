@@ -258,18 +258,19 @@ input, textarea {
     transform: translateY(0) !important;
 }
 
-.slider {
+#range {
     -webkit-appearance: none;
     appearance: none;
     /*width: 100%; */
     /*height: 25px; */
-    background: #d3d3d3 !important; /* Grey background */
+    background: transparent !important;
     outline: none;
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s;
     transition: opacity .2s;
-    padding: 0;
+    padding: 0 0 -50% !important;
     border-bottom: none !important;
+    margin-top: 10px;
 }
 
 .slider:hover {
@@ -292,4 +293,12 @@ input, textarea {
     cursor: pointer;
 }
 
+#moreWrapper {
+    filter: grayscale(1);
+}
+#moreWrapper > button:hover:before,
+#moreWrapper > button:hover ~ button:before {
+    filter: grayscale(0);
+    transform: translateY(300px);
+}
 

@@ -170,7 +170,8 @@
             <h2>SETTINGS</h2>
         </div>
         <div class="row">
-            <div class="col"><h4>Movement Configuration</h4>
+            <div class="col" style="border-right: aliceblue 2px solid">
+                <h4>Movement Configuration</h4>
                 Select direction <br> Then press the new key
                 <div id="wrapper">
                     <div class="box b">
@@ -186,13 +187,13 @@
                         <button id="buttonR" onclick="test(event,this.id)"><i class="fas fa-arrow-right i"></i></button>
                     </div>
                 </div>
-                <h4>Game Configuration</h4>
-                Game length (in seconds)
-                <br>
+                <h4>Monsters Configuration</h4>
                 Monsters number
-                <div id="moreWrapper">
+                <div id="moreWrapper" class="rating">
                     <div class="box b">
-                        <button id="button1" onclick="test(event,this.id)"><i class="fas fa-arrow-up i"></i></button>
+                        <button id="button1" onclick="test(event,this.id)">
+                            <img src="./resources/blueGhost.png" height="50" width="50" alt="">
+                        </button>
                     </div>
                     <div class="box d">
                         <button id="button2" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
@@ -205,11 +206,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="border-left: aliceblue 4px solid">
+            <div class="col" style="border-left: aliceblue 2px solid">
                 <h4>Balls Configuration</h4>
                 Select balls number and colors
                 <br> Balls number: <span id="copyTarget">50</span>
-                <input type="range" value="50" min="50" max="90"
+                <input id="range" type="range" value="50" min="50" max="90"
                        class="form-control slider" onchange="copyData(this,'copyTarget')">
                 <br>
                 <div class="row align-items-center mt-4" id="colors">
@@ -223,7 +224,9 @@
                         <input type="color" class="form-control" required>
                     </div>
                 </div>
-
+                <h4>Game Configuration</h4>
+                Game length (in seconds)
+                <br>
             </div>
         </div>
         <div style="width: 50%; margin-left: 25%">
