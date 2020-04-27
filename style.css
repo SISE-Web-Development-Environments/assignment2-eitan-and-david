@@ -14,8 +14,8 @@ body {
 #header h1 {
     font-family: 'Monoton', cursive;
     font-weight: 300;
-    font-size: 4.5em;
-    padding-top: 1rem;
+    font-size: 3.5em;
+    padding-top: 1.4rem;
 }
 
 #header h5 {
@@ -70,16 +70,19 @@ button :hover {
     text-align: center;
     font-size: 30px;
     margin-bottom: 0;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     background: transparent;
 }
 
 .navbar-dark {
     background-color: #222222 !important;
+    margin-top: -1rem;
 }
 
-#registerView h2, #loginView h2 {
+#registerView h2,
+#settingsView h2,
+#loginView h2 {
     /*background-color: rgb(34, 34, 34);*/
     color: #FFFFFF;
     margin-bottom: 5% !important;
@@ -87,7 +90,9 @@ button :hover {
     /*margin-left: 35%;*/
 }
 
-#registerView img, #loginView img {
+#registerView img,
+#settingsView img,
+#loginView img {
     margin-top: 5%;
     margin-bottom: 5%;
     /*margin-right: 40%;*/
@@ -99,7 +104,9 @@ input, textarea {
     border: 1px solid #ccc !important;
 }
 
-#registerView input, #loginView input {
+#registerView input,
+#settingsView input,
+#loginView input {
     background-color: transparent;
     color: aliceblue;
     border: none !important;
@@ -112,7 +119,9 @@ input, textarea {
     font-size: 1.1rem;
 }
 
-#registerView input::placeholder, #loginView input::placeholder {
+#registerView input::placeholder,
+#settingsView input::placeholder,
+#loginView input::placeholder {
     color: aliceblue;
 }
 
@@ -125,7 +134,8 @@ input, textarea {
     border-radius: 90px;
 }
 
-#registerView button {
+#registerView button,
+#settingsView button {
     background-color: #222222 !important;
     width: 40%;
     margin: 20px auto;
@@ -134,12 +144,16 @@ input, textarea {
     border-radius: 90px;
 }
 
-#registerView button:hover, #loginView button:hover {
+#registerView button:hover,
+#settingsView button:hover,
+#loginView button:hover {
     background-color: rgba(34, 34, 34, 0.75) !important;
     color: aliceblue;
 }
 
-#registerView form, #loginView form {
+#registerView form,
+#settingsView form,
+#loginView form {
     text-align: center;
     background-color: rgba(34, 34, 34, 0.51);
     padding: 10px 0;
@@ -164,12 +178,14 @@ input, textarea {
     color: aliceblue !important;
 }
 
-#birthday {
+#birthday,
+#colors {
     margin: 0 13% !important;
     filter: grayscale(100%) !important;
 }
 
-#birthday .col {
+#birthday .col,
+#colors .col {
     padding: 0 2% 2%;
     margin-top: -3px;
 }
@@ -190,13 +206,94 @@ input, textarea {
     box-shadow: none !important;
     filter: grayscale(100%) !important;
 }
+
 #mainMenu h5 {
     color: aliceblue;
 }
+
 #mainMenu h5:hover {
     transform: translateY(0);
 }
 
+#moreWrapper,
+#wrapper {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 22% 22% 22% 22%;
+    grid-gap: 0;
+    background-color: transparent;
+    color: #444;
+    padding-left: 5%;
+    padding-right: 5%;
+    /*margin-bottom: -3em;*/
+    /*margin-top: -1em;*/
+}
 
+.box {
+    background-color: transparent;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+    justify-content: center;
+    align-items: center;
+}
+
+#moreWrapper .box button,
+#wrapper .box button {
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    background-color: transparent !important;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+#moreWrapper .box .i,
+#wrapper .box .i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#moreWrapper .box button:hover{
+    transform: translateY(0) !important;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    /*width: 100%; */
+    /*height: 25px; */
+    background: #d3d3d3 !important; /* Grey background */
+    outline: none;
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    padding: 0;
+    border-bottom: none !important;
+}
+
+.slider:hover {
+    /*opacity: 1;*/
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #222222;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #222222;
+    cursor: pointer;
+}
 
 
