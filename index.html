@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"
-            integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Monoton&display=swap" rel="stylesheet">
     <script src="scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -41,6 +41,11 @@
             <br>
             <h5>PLAY</h5>
         </button>
+        <button type="button" id="logout" onclick="logOut()" hidden>
+            <img src="./resources/yellowGhost.png" alt="" width="100" height="100">
+            <br>
+            <h5>LOG OUT</h5>
+        </button>
         <button type="button" id="logIn">
             <img src="./resources/greenGhost.png" alt="" width="100" height="100">
             <br>
@@ -69,10 +74,8 @@
 <div id="Welcome" align="center">
     <button type="button" id="welcome_register">
         <img src="./resources/pacman.png" alt="" width="50%">
-    </button>
     <button type="button" id="welcome_login">
         <img src="./resources/pacwoman.png" alt="" width="50%">
-    </button>
 </div>
 <!-- Welcome -->
 
@@ -110,23 +113,6 @@
     <div id="game">
         <canvas id="canvas" height="600" width="600"></canvas>
     </div>
-</div>
-
-<div id="loginView" hidden>
-    <br>
-    <br>
-    <br>
-    <form id="loginForm" class="form-signin container" style="width: 20%">
-        <img src="./resources/greenGhost.png" alt="" width="100" height="100">
-        <h2 align="center">SIGN IN</h2>
-        <label for="loginForm_username" class="sr-only">Email address</label>
-        <input type="text" id="loginForm_username" class="form-control" placeholder="User Name" required="" autofocus="">
-        <label for="loginForm_password" class="sr-only">Password</label>
-        <input type="password" id="loginForm_password" class="form-control" placeholder="Password" required="">
-        <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
-    </form>
-    <br>
-    <br>
 </div>
 
 <div id="registerView" hidden>
@@ -172,76 +158,43 @@
 
 <div id="settingsView" hidden>
     <br>
-    <form class="container" style="width: 40%">
-        <div style="width: 50%; margin-left: 25%">
-            <img align="center" src="./resources/redGhost.png" alt="" width="100" height="100">
-            <h2>SETTINGS</h2>
-        </div>
-        <div class="row">
-            <div class="col" style="border-right: aliceblue 2px solid">
-                <h4>Movement Configuration</h4>
-                Select direction <br> Then press the new key
-                <div id="wrapper">
-                    <div class="box b">
-                        <button id="buttonU" onclick="test(event,this.id)"><i class="fas fa-arrow-up i"></i></button>
-                    </div>
-                    <div class="box d">
-                        <button id="buttonL" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
-                    </div>
-                    <div class="box e">
-                        <button id="buttonD" onclick="test(event,this.id)"><i class="fas fa-arrow-down i"></i></button>
-                    </div>
-                    <div class="box f">
-                        <button id="buttonR" onclick="test(event,this.id)"><i class="fas fa-arrow-right i"></i></button>
-                    </div>
-                </div>
-                <h4>Monsters Configuration</h4>
-                Monsters number
-                <div id="moreWrapper" class="rating">
-                    <div class="box b">
-                        <button id="button1" onclick="test(event,this.id)">
-                            <img src="./resources/blueGhost.png" height="50" width="50" alt="">
-                        </button>
-                    </div>
-                    <div class="box d">
-                        <button id="button2" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
-                    </div>
-                    <div class="box e">
-                        <button id="button3" onclick="test(event,this.id)"><i class="fas fa-arrow-down i"></i></button>
-                    </div>
-                    <div class="box f">
-                        <button id="button4" onclick="test(event,this.id)"><i class="fas fa-arrow-right i"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col" style="border-left: aliceblue 2px solid">
-                <h4>Balls Configuration</h4>
-                Select balls number and colors
-                <br> Balls number: <span id="copyTarget">50</span>
-                <input id="range" type="range" value="50" min="50" max="90"
-                       class="form-control slider" onchange="copyData(this,'copyTarget')">
-                <br>
-                <div class="row align-items-center mt-4" id="colors">
-                    <div class="col">
-                        <input type="color" class="form-control" required>
-                    </div>
-                    <div class="col">
-                        <input type="color" class="form-control" required>
-                    </div>
-                    <div class="col">
-                        <input type="color" class="form-control" required>
-                    </div>
-                </div>
-                <h4>Game Configuration</h4>
-                Game length (in seconds)
-                <br>
-            </div>
-        </div>
-        <div style="width: 50%; margin-left: 25%">
-            <button class="btn btn-lg btn-dark btn-block">CONFIRM</button>
-        </div>
+    <form class="container" style="width: 20%">
+        <img align="center" src="./resources/redGhost.png" alt="" width="100" height="100">
+        <h2>SETTINGS</h2>
+        <h4>Keys SetUp</h4>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set left" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set right" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set up" required>
+        <input type="text" class="form-control" placeholder="press on your keyboard to set down" required>
+        <h4>Balls SetUp</h4>
+        <input type="range" value="50" min="50" max="90" class="form-control">
+        <input type="color" class="form-control" required>
+        <input type="color" class="form-control" required>
+        <input type="color" class="form-control" required>
+
+        <button class="btn btn-lg btn-dark btn-block">SUBMIT</button>
     </form>
 </div>
+
+
+<div id="loginView" hidden>
+    <br>
+    <br>
+    <br>
+    <form id="loginForm" class="form-signin container" style="width: 20%">
+        <img src="./resources/greenGhost.png" alt="" width="100" height="100">
+        <h2 align="center">SIGN IN</h2>
+        <label for="inputUser" class="sr-only">Email address</label>
+        <input id="loginForm_username" type="text" id="inputUser" class="form-control" placeholder="User Name" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input id="loginForm_password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
+    </form>
+    <br>
+    <br>
+</div>
+
+
 
 <!-- Content -->
 <br>
@@ -253,20 +206,6 @@
     </div>
 </div>
 <!-- Footer -->
-
-<!-- REMOVE INPUT CACHE -->
-<script>
-    document.querySelectorAll('input[type=text], input[type=email]').forEach(
-        input => {
-            input.setAttribute('autocomplete', 'off')
-        }
-    );
-</script>
-<!-- FONT AWESOME -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
-        integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
-        crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/f6a2967fd7.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
     document.getElementById("register").addEventListener('click',function () {
         currentPage.setPageName("registerView");
@@ -295,6 +234,7 @@
         changeDiv();
     });
 
+
     document.getElementById("play").addEventListener('click',function () {
         if(signedIn){
             currentPage.setPageName("gameView");
@@ -302,8 +242,9 @@
         }else{
             alert("Please sign in first");
         }
-
     });
+
+
 
 </script>
 </body>

@@ -230,7 +230,7 @@ $(function() {
 
 
 	function check_password() {
-		var letters =  /^[0-9a-zA-Z]+$/;
+		var letters = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/i;
 		var password = $("#form_password").val();
 		var result =   letters.test(password);
 		var password_length = $("#form_password").val().length;
@@ -340,12 +340,25 @@ $(function() {
 				currentPage.setPageName("Welcome");
 				changeDiv();
 				signedIn = true;
+				document.getElementById("logout").hidden = false;
+				document.getElementById("logIn").hidden = true;
+				document.getElementById("register").hidden = true;
 			}else{
 				alert("Incorrect user or password");
 				e.preventDefault();
 			}
 		});
 	});
+	
+
+	function logOut(){
+		document.getElementById("logout").hidden = true;
+		document.getElementById("logIn").hidden = false;
+		document.getElementById("register").hidden = false;
+		signedIn = false;
+		currentPage.setPageName("Welcome");
+		changeDiv();
+	}
 
 
 
