@@ -195,7 +195,7 @@
                 Select direction <br> Then press the new key
                 <div id="wrapper">
                     <div class="box b">
-                        <button id="buttonU" onclick="test(event,this.id)"><i class="fas fa-arrow-up i"></i></button>
+                        <button id="buttonU"><i class="fas fa-arrow-up i"></i></button>
                     </div>
                     <div class="box d">
                         <button id="buttonL" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
@@ -335,6 +335,45 @@
         }
     });
 
+    document.getElementById("buttonU").addEventListener('click', function(event){
+        event.preventDefault();
+        document.addEventListener('keydown', function davidFunction (e){
+            keyUpdateListener(e,"buttonU");
+            document.removeEventListener('keydown', davidFunction );
+        });
+        document.getElementById("buttonU").blur();
+    });
+
+    document.getElementById("buttonL").addEventListener('click', function(event){
+        event.preventDefault();
+        document.addEventListener('keydown', function davidFunction (e){
+            keyUpdateListener(e,"buttonL");
+            document.removeEventListener('keydown', davidFunction );
+        });
+        document.getElementById("buttonL").blur();
+    });
+
+    document.getElementById("buttonR").addEventListener('click', function(event){
+        event.preventDefault();
+        document.addEventListener('keydown', function davidFunction (e){
+            keyUpdateListener(e,"buttonR");
+            document.removeEventListener('keydown', davidFunction );
+        });
+        document.getElementById("buttonR").blur();
+    });
+
+    document.getElementById("buttonD").addEventListener('click', function(event){
+        event.preventDefault();
+        document.addEventListener('keydown', function davidFunction (e){
+            keyUpdateListener(e,"buttonD");
+            document.removeEventListener('keydown', davidFunction );
+        });
+        document.getElementById("buttonD").blur();
+    });
+
+    let keyUpdateListener = function (event, id) {
+        test(event.keyCode, id);
+    };
 
 
 </script>

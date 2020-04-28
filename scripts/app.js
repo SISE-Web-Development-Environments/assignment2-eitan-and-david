@@ -1,21 +1,27 @@
+// canvas content
 var context;
+// PacMan
 var shape = new Object();
+// 10*10 array
 var board;
 var score;
 var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var AC_moveUp;
-var AC_moveDown;
-var AC_moveRight;
-var AC_moveLeft;
+
+// Settings Parameters
+var AC_moveUp; //
+var AC_moveDown; //
+var AC_moveRight; //
+var AC_moveLeft; //
 var AC_monsterNumber = 1;
 var AC_ballsNumber;
 var AC_ball_5;
 var AC_ball_15;
 var AC_ball_25;
 var AC_timeout;
+// Settings Parameters
 
 var controls = {
 	left: undefined,
@@ -38,7 +44,7 @@ function Start() {
 	score = 0;	
 	pac_color = "yellow";
 	var cnt = 100;
-	var food_remain = 50;
+	var food_remain = AC_ballsNumber;
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -52,29 +58,35 @@ function Start() {
 				(i == 6 && j == 1) ||
 				(i == 6 && j == 2)
 			) {
-				board[i][j] = 4;
+				// put walls
+				board[i][j] = 4; // Wall = 4
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					board[i][j] = 1; // Food = 1
+					//
+					//
+					//
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
-					board[i][j] = 2;
+					board[i][j] = 2; // PacMan = 2
 				} else {
-					board[i][j] = 0;
+					board[i][j] = 0; // Empty = 0
 				}
 				cnt--;
 			}
 		}
 	}
+	// place all food
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
 	}
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -104,16 +116,16 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[AC_moveUp]) {
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[AC_moveDown]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[AC_moveLeft]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[AC_moveRight]) {
 		return 4;
 	}
 }
@@ -371,44 +383,16 @@ $(function() {
 	}
 
 // SETTINGS
-var moveUp;
-var moveDown;
-var moveRight;
-var moveLeft;
+var moveRight = 39;
+var moveDown = 40;
+var moveLeft = 37;
+var moveUp = 38;
 var monsterNumber = 1;
 var ballsNumber;
-var ball_5;
-var ball_15;
-var ball_25;
+var ball_5 = "A33643";
+var ball_15 = "256E5C";
+var ball_25 = "F4A000";
 var timeout;
-
-function test(e,id) {
-	e.preventDefault();
-	let newKey = this.addEventListener("keypress", keyUpdateListener);
-	switch (id) {
-		case "buttonU":
-			moveUp = newKey;
-			break;
-		case "buttonL":
-			moveLeft = newKey;
-			break;
-		case "buttonD":
-			moveDown = newKey;
-			break;
-		case "buttonR":
-			moveRight = newKey;
-			break;
-	}
-}
-
-let keyUpdateListener = function (event) {
-	removeUpdateListener();
-	return event.keyCode;
-};
-
-function removeUpdateListener(){
-	this.removeEventListener("keypress", keyUpdateListener);
-}
 
 function copyData(element, target) {
 	document.getElementById(target).textContent = element.value;
@@ -482,16 +466,41 @@ function commitChanges() {
 function settingsConfirm(e, isRandom){
 	if (e != null)
 		e.preventDefault();
-	if (!((ball_5 !== ball_15) && (ball_15 !== ball_25) && (ball_5 !== ball_25)))
+	if (!((ball_5 !== ball_15) && (ball_15 !== ball_25) && (ball_5 !== ball_25))){
+		if(!isRandom) alert("Balls colors have to be different");
 		return false;
+	}
 	if(!((moveRight !== moveDown) && (moveRight !== moveLeft) && (moveRight !== moveUp)
-		&& (moveDown !== moveLeft) && (moveDown !== moveUp) && (moveLeft !== moveUp)))
+		&& (moveDown !== moveLeft) && (moveDown !== moveUp) && (moveLeft !== moveUp))){
+		if(!isRandom) alert("Movement keys have to be different");
 		return false;
+	}
 	if(!isRandom){
 		setBalls();
 		setLength();
 	}
 	commitChanges();
+	alert("Changes Updated Successfully!");
+	currentPage.setPageName("Welcome");
+	changeDiv();
 	return true;
+}
+
+function test(code,id) {
+	switch (id) {
+		case "buttonU":
+			alert(code);
+			moveUp = code;
+			break;
+		case "buttonL":
+			moveLeft = code;
+			break;
+		case "buttonD":
+			moveDown = code;
+			break;
+		case "buttonR":
+			moveRight = code;
+			break;
+	}
 }
 // SETTINGS
