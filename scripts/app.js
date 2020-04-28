@@ -6,6 +6,16 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var AC_moveUp;
+var AC_moveDown;
+var AC_moveRight;
+var AC_moveLeft;
+var AC_monsterNumber = 1;
+var AC_ballsNumber;
+var AC_ball_5;
+var AC_ball_15;
+var AC_ball_25;
+var AC_timeout;
 
 var controls = {
 	left: undefined,
@@ -360,18 +370,17 @@ $(function() {
 		changeDiv();
 	}
 
-
-
-
-
-
-
-
-// MY FUNCTIONS
-let moveUp;
-let moveDown;
-let moveRight;
-let moveLeft;
+// SETTINGS
+var moveUp;
+var moveDown;
+var moveRight;
+var moveLeft;
+var monsterNumber = 1;
+var ballsNumber;
+var ball_5;
+var ball_15;
+var ball_25;
+var timeout;
 
 function test(e,id) {
 	e.preventDefault();
@@ -404,4 +413,85 @@ function removeUpdateListener(){
 function copyData(element, target) {
 	document.getElementById(target).textContent = element.value;
 }
-// MY FUNCTIONS
+
+function setBalls() {
+	ballsNumber = document.getElementById('range').value;
+}
+
+function setLength() {
+	timeout = document.getElementById('gameLength').value;
+}
+
+function setColor(id){
+	switch (id) {
+		case 1:
+			ball_5 = document.getElementById('5pts').value;
+			break;
+		case 2:
+			ball_15 = document.getElementById('15pts').value;
+			break;
+		case 3:
+			ball_25 = document.getElementById('25pts').value;
+			break;
+	}
+}
+
+function moreMonsters(e){
+	e.preventDefault();
+	if(monsterNumber < 4)
+		monsterNumber++;
+	console.log(monsterNumber)
+}
+
+function lessMonsters(e){
+	e.preventDefault();
+	if(monsterNumber > 1)
+		monsterNumber--;
+	console.log(monsterNumber)
+}
+
+function randomSettings(e){
+	e.preventDefault();
+	moveRight = 39;
+	moveDown = 40;
+	moveLeft = 37;
+	moveUp = 38;
+	ballsNumber = Math.floor(Math.random()*40 + 50);
+	monsterNumber = Math.floor(Math.random()*3 + 1);
+	timeout = Math.floor(Math.random()*240 + 60);
+	do{
+		ball_5 = Math.floor(Math.random()*16777215).toString(16);
+		ball_15 = Math.floor(Math.random()*16777215).toString(16);
+		ball_25 = Math.floor(Math.random()*16777215).toString(16);
+	}while (!settingsConfirm(null,true))
+}
+
+function commitChanges() {
+	AC_ball_5 = ball_5;
+	AC_ball_15 = ball_15;
+	AC_ball_25 = ball_25;
+	AC_ballsNumber = ballsNumber;
+	AC_monsterNumber = monsterNumber;
+	AC_moveDown = moveDown;
+	AC_moveUp = moveUp;
+	AC_moveRight = moveRight;
+	AC_moveLeft = moveLeft;
+	AC_timeout = timeout;
+}
+
+function settingsConfirm(e, isRandom){
+	if (e != null)
+		e.preventDefault();
+	if (!((ball_5 !== ball_15) && (ball_15 !== ball_25) && (ball_5 !== ball_25)))
+		return false;
+	if(!((moveRight !== moveDown) && (moveRight !== moveLeft) && (moveRight !== moveUp)
+		&& (moveDown !== moveLeft) && (moveDown !== moveUp) && (moveLeft !== moveUp)))
+		return false;
+	if(!isRandom){
+		setBalls();
+		setLength();
+	}
+	commitChanges();
+	return true;
+}
+// SETTINGS
