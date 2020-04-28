@@ -37,27 +37,27 @@
 <div id="mainMenu" hidden>
     <div align="center">
         <button type="button" id="play">
-            <img src="./resources/yellowGhost.png" alt="" width="100" height="100">
+            <img src="./resources/yellowGhost.png" alt="" width="70" height="70">
             <br>
             <h5>PLAY</h5>
         </button>
         <button type="button" id="logIn">
-            <img src="./resources/greenGhost.png" alt="" width="100" height="100">
+            <img src="./resources/greenGhost.png" alt="" width="70" height="70">
             <br>
             <h5>LOGIN</h5>
         </button>
         <button type="button" id="register">
-            <img src="./resources/blueGhost.png" alt="" width="100" height="100">
+            <img src="./resources/blueGhost.png" alt="" width="70" height="70">
             <br>
             <h5>REGISTER</h5>
         </button>
         <button type="button" id="settings">
-            <img src="./resources/redGhost.png" alt="" width="100" height="100">
+            <img src="./resources/redGhost.png" alt="" width="70" height="70">
             <br>
             <h5>SETTINGS</h5>
         </button>
         <button type="button" data-toggle="modal" data-target="#myModal">
-            <img src="./resources/brownGhost.png" alt="" width="100" height="100">
+            <img src="./resources/brownGhost.png" alt="" width="70" height="70">
             <br>
             <h5>ABOUT</h5>
         </button>
@@ -68,10 +68,12 @@
 <!-- Welcome -->
 <div id="Welcome" align="center">
     <button type="button" id="welcome_register">
-        <img src="./resources/pacman.png" alt="" width="50%">
+        <img src="./resources/register.png" alt="" width="300px">
+        <h5 class="welcomeTitle">REGISTER</h5>
     </button>
     <button type="button" id="welcome_login">
-        <img src="./resources/pacwoman.png" alt="" width="50%">
+        <img src="./resources/login.png" alt="" width="300px">
+        <h5 class="welcomeTitle">LOGIN</h5>
     </button>
 </div>
 <!-- Welcome -->
@@ -120,7 +122,8 @@
         <img src="./resources/greenGhost.png" alt="" width="100" height="100">
         <h2 align="center">SIGN IN</h2>
         <label for="loginForm_username" class="sr-only">Email address</label>
-        <input type="text" id="loginForm_username" class="form-control" placeholder="User Name" required="" autofocus="">
+        <input type="text" id="loginForm_username" class="form-control" placeholder="User Name" required=""
+               autofocus="">
         <label for="loginForm_password" class="sr-only">Password</label>
         <input type="password" id="loginForm_password" class="form-control" placeholder="Password" required="">
         <button class="btn btn-lg btn-dark btn-block" type="submit">LOG IN</button>
@@ -135,10 +138,14 @@
         <img src="./resources/blueGhost.png" alt="" width="100" height="100">
         <h2>REGISTER</h2>
         <input id="form_username" type="text" class="form-control" placeholder="User Name" required>
-        <input id="form_password" type="password" class="form-control" placeholder="Password" required><span id="password_error_message"></span>
-        <input id="form_email" type="text" class="form-control" placeholder="Email" required><span id="email_error_message"></span>
-        <input id="form_fName" type="text" class="form-control" placeholder="First Name" required><span id="fname_error_message"></span>
-        <input id="form_lName" type="text" class="form-control" placeholder="Last Name" required><span id="lname_error_message"></span>
+        <input id="form_password" type="password" class="form-control" placeholder="Password" required><span
+            id="password_error_message"></span>
+        <input id="form_email" type="text" class="form-control" placeholder="Email" required><span
+            id="email_error_message"></span>
+        <input id="form_fName" type="text" class="form-control" placeholder="First Name" required><span
+            id="fname_error_message"></span>
+        <input id="form_lName" type="text" class="form-control" placeholder="Last Name" required><span
+            id="lname_error_message"></span>
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
@@ -198,47 +205,66 @@
                 <h4>Monsters Configuration</h4>
                 Monsters number
                 <div id="moreWrapper" class="rating">
-                    <div class="box b">
-                        <button id="button1" onclick="test(event,this.id)">
-                            <img src="./resources/blueGhost.png" height="50" width="50" alt="">
-                        </button>
-                    </div>
                     <div class="box d">
-                        <button id="button2" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
+                        <button id="button2" onclick="lessMonsters(event)"><i class="fas fa-minus"></i></button>
                     </div>
-                    <div class="box e">
-                        <button id="button3" onclick="test(event,this.id)"><i class="fas fa-arrow-down i"></i></button>
+                    <div class="box b">
+                        <img src="./resources/blueGhost.png" height="50" width="50" alt="">
+                        <i class="fas fa-times"></i>
                     </div>
                     <div class="box f">
-                        <button id="button4" onclick="test(event,this.id)"><i class="fas fa-arrow-right i"></i></button>
+                        <button id="button4" onclick="moreMonsters(event)"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
             <div class="col" style="border-left: aliceblue 2px solid">
                 <h4>Balls Configuration</h4>
                 Select balls number and colors
-                <br> Balls number: <span id="copyTarget">50</span>
-                <input id="range" type="range" value="50" min="50" max="90"
-                       class="form-control slider" onchange="copyData(this,'copyTarget')">
-                <br>
-                <div class="row align-items-center mt-4" id="colors">
+                <div class="row align-items-center mt-4" id="balls">
                     <div class="col">
-                        <input type="color" class="form-control" required>
+                        Balls : <span id="copyTarget">50</span>
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required>
+                        <input id="range" type="range" value="50" min="50" max="90"
+                               class="form-control slider" onchange="copyData(this,'copyTarget')">
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4" id="colors_5">
+                    <div class="col">
+                        5 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required>
+                        <input type="color" class="form-control" required id="5pts" onchange="setColor(1)">
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4" id="colors_15">
+                    <div class="col">
+                        15 Points ball :
+                    </div>
+                    <div class="col">
+                        <input type="color" class="form-control" required id="15pts" onchange="setColor(2)">
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4" id="colors_25">
+                    <div class="col">
+                        25 Points ball :
+                    </div>
+                    <div class="col">
+                        <input type="color" class="form-control" required id="25pts" onchange="setColor(3)">
                     </div>
                 </div>
                 <h4>Game Configuration</h4>
-                Game length (in seconds)
+                Game length <input type="number" min="60" value="60" id="gameLength">
                 <br>
             </div>
         </div>
-        <div style="width: 50%; margin-left: 25%">
-            <button class="btn btn-lg btn-dark btn-block">CONFIRM</button>
+        <div style="width: 100%" class="row">
+            <div class="col">
+                <button class="btn btn-lg btn-dark btn-block" onclick="randomSettings(event)">RANDOM</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-lg btn-dark btn-block" onclick="settingsConfirm(event, false)">CONFIRM</button>
+            </div>
         </div>
     </form>
 </div>
@@ -268,38 +294,38 @@
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/f6a2967fd7.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    document.getElementById("register").addEventListener('click',function () {
+    document.getElementById("register").addEventListener('click', function () {
         currentPage.setPageName("registerView");
         changeDiv();
     });
 
-    document.getElementById("logIn").addEventListener('click',function () {
+    document.getElementById("logIn").addEventListener('click', function () {
         currentPage.setPageName("loginView");
         changeDiv();
     });
 
-    document.getElementById("settings").addEventListener('click',function () {
+    document.getElementById("settings").addEventListener('click', function () {
         currentPage.setPageName("settingsView");
         changeDiv();
     });
 
-    document.getElementById("welcome_register").addEventListener('click',function () {
+    document.getElementById("welcome_register").addEventListener('click', function () {
         currentPage.setPageName("registerView");
         document.getElementById("mainMenu").hidden = false;
         changeDiv();
     });
 
-    document.getElementById("welcome_login").addEventListener('click',function () {
+    document.getElementById("welcome_login").addEventListener('click', function () {
         currentPage.setPageName("loginView");
         document.getElementById("mainMenu").hidden = false;
         changeDiv();
     });
 
-    document.getElementById("play").addEventListener('click',function () {
-        if(signedIn){
+    document.getElementById("play").addEventListener('click', function () {
+        if (signedIn) {
             currentPage.setPageName("gameView");
             changeDiv();
-        }else{
+        } else {
             alert("Please sign in first");
         }
 
