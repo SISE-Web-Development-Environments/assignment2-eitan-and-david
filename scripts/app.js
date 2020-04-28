@@ -23,17 +23,11 @@ var AC_ball_25;
 var AC_timeout;
 // Settings Parameters
 
-var controls = {
-	left: undefined,
-	right: undefined,
-	up: undefined,
-	down: undefined
-};
-
+// Registered Users
 const usersDB =[];
+var signedIn = false; // current user is signed in
 
-var signedIn = false;
-
+// Load Game
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
@@ -115,6 +109,7 @@ function findRandomEmptyCell(board) {
 	return [i, j];
 }
 
+
 function GetKeyPressed() {
 	if (keysDown[AC_moveUp]) {
 		return 1;
@@ -131,7 +126,7 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-	canvas.width = canvas.width; //clean board
+	canvas.width = canvas.width; // Clean Board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 10; i++) {
@@ -139,7 +134,7 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
+			if (board[i][j] == 2) { // if value == 2 -> draw PacMan
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
