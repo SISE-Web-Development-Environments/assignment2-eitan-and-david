@@ -228,6 +228,18 @@ function Draw() {
 			m_center4.x = monster4.i * 60 + 30;
 			m_center4.y = monster4.j * 60 + 30;
 
+			if(monster1.i == i && monster1.j == j){
+				context.drawImage(monster1_image, m_center1.x -30, m_center1.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster2.i == i && monster2.j == j){
+				context.drawImage(monster2_image, m_center2.x -30, m_center2.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster3.i == i && monster3.j == j){
+				context.drawImage(monster3_image, m_center3.x -30, m_center3.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster4.i == i && monster4.j == j){
+				context.drawImage(monster4_image, m_center4.x -30, m_center4.y -30, canvas.width /10, canvas.height /10);
+			}
 
 			if (board[i][j] == 2) {
 				context.beginPath();
@@ -584,16 +596,16 @@ function randomSettings(e){
 	monsterNumber = Math.floor(Math.random()*3 + 1);
 	timeout = Math.floor(Math.random()*240 + 60);
 	do{
-		ball_5 = Math.floor(Math.random()*16777215).toString(16);
-		ball_15 = Math.floor(Math.random()*16777215).toString(16);
-		ball_25 = Math.floor(Math.random()*16777215).toString(16);
+		ball_5 = "#" + Math.floor(Math.random()*16777215).toString(16);
+		ball_15 = "#" +  Math.floor(Math.random()*16777215).toString(16);
+		ball_25 = "#" +  Math.floor(Math.random()*16777215).toString(16);
 	}while (!settingsConfirm(null,true))
 }
 
 function commitChanges() {
-	AC_ball_5 = ball_5;
-	AC_ball_15 = ball_15;
-	AC_ball_25 = ball_25;
+	AC_ball_5 = ball_5.toString();
+	AC_ball_15 = ball_15.toString();
+	AC_ball_25 = ball_25.toString();
 	AC_ballsNumber = ballsNumber;
 	AC_monsterNumber = monsterNumber;
 	AC_moveDown = moveDown;
