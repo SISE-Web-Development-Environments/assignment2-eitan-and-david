@@ -3,26 +3,45 @@ var context;
 // PacMan
 var shape = new Object();
 // 10*10 array
+var pacmen_life = 5;
 var board;
 var score;
 var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-
+var monster1_interval;
+var monster2_interval;
+var monster3_interval;
+var monster4_interval;
+var monster1_image = new Image();
+var monster2_image = new Image();
+var monster3_image = new Image();
+var monster4_image = new Image();
+monster1_image.src = "./resources/blueGhost.png";
+monster2_image.src = "./resources/yellowGhost.png";
+monster3_image.src = "./resources/redGhost.png";
+monster4_image.src = "./resources/greenGhost.png";
+var monster1 = new Object();
+var monster2 = new Object();
+var monster3 = new Object();
+var monster4 = new Object();
 // Settings Parameters
-var AC_moveUp; //
-var AC_moveDown; //
-var AC_moveRight; //
-var AC_moveLeft; //
+var AC_moveUp = 38; //
+var AC_moveDown = 40; //
+var AC_moveRight = 39; //
+var AC_moveLeft = 37; //
 var AC_monsterNumber = 1;
-var AC_ballsNumber;
-var AC_ball_5;
-var AC_ball_15;
-var AC_ball_25;
-var AC_timeout;
+var AC_ballsNumber = 50;
+var AC_ball_5 = "#ffd737";
+var AC_ball_15 = "#8340ff";
+var AC_ball_25 = "#34ff1d";
+var AC_timeout = 60;
+var scoreToWin = 75;
 // Settings Parameters
-
+const usersDB =[];
+var admin = {userName:"p",password:"p"};
+usersDB.push(admin);
 var controls = {
 	left: undefined,
 	right: undefined,
@@ -30,13 +49,14 @@ var controls = {
 	down: undefined
 };
 
-const usersDB =[];
+
 
 var signedIn = false;
 
+
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
-	Start();
 });
 
 function Start() {
@@ -44,7 +64,7 @@ function Start() {
 	score = 0;	
 	pac_color = "yellow";
 	var cnt = 100;
-	var food_remain = AC_ballsNumber;
+	var food_remain = parseInt(AC_ballsNumber);
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -52,22 +72,49 @@ function Start() {
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i === 3 && j === 3) ||
+				(i === 3 && j === 4) ||
+				(i === 3 && j === 5) ||
+				(i === 6 && j === 1) ||
+				(i === 6 && j === 2)
 			) {
 				// put walls
 				board[i][j] = 4; // Wall = 4
-			} else {
+			}else if ((i === 0 && j === 0) ||
+				(i === 9 && j === 9) ||
+				(i === 9 && j === 0) ||
+				(i === 0 && j === 9)) {
+				monster1.i = 9;
+				monster1.j = 9;
+				if (AC_monsterNumber == 2){
+					monster2.i = 0;
+					monster2.j = 0;
+				}else if (AC_monsterNumber == 3){
+					monster2.i = 0;
+					monster2.j = 0;
+					monster3.i = 0;
+					monster3.j = 9;
+				}else{
+					monster2.i = 0;
+					monster2.j = 0;
+					monster3.i = 0;
+					monster3.j = 9;
+					monster4.i = 9;
+					monster4.j = 0;
+				}
+			}
+			else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1; // Food = 1
-					//
-					//
-					//
+					var food_randomNum = Math.random();
+					if (food_randomNum <=0.6){
+						board[i][j] = 6;
+					}else if (food_randomNum>0.6 && food_randomNum<=0.9){
+						board[i][j] = 3;
+					}else{
+						board[i][j] = 1;
+					}
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -86,7 +133,13 @@ function Start() {
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
 	}
-
+	if(pacman_remain == 1){
+		var packman_emptyCell = findRandomEmptyCell(board);
+		board[packman_emptyCell[0]][packman_emptyCell[1]] = 2;
+		shape.i = packman_emptyCell[0];
+		shape.j = packman_emptyCell[1];
+		pacman_remain--;
+	}
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -103,6 +156,21 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 250);
+	monster1_interval = setInterval(updatePositionMonster,600);
+	if (AC_monsterNumber == 2){
+		monster2_interval = setInterval(updatePositionMonster,600);
+	}else if (AC_monsterNumber == 3){
+		monster2_interval = setInterval(updatePositionMonster,600);
+		monster3_interval = setInterval(updatePositionMonster,600);
+	}else{
+		monster2_interval = setInterval(updatePositionMonster,600);
+		monster3_interval = setInterval(updatePositionMonster,600);
+		monster4_interval = setInterval(updatePositionMonster,600);
+	}
+}
+
+function updatePositionMonster(){
+
 }
 
 function findRandomEmptyCell(board) {
@@ -139,6 +207,28 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
+			//monsters
+			var m_center1 = new Object();
+
+			var m_center2 = new Object();
+
+			var m_center3 = new Object();
+
+			var m_center4 = new Object();
+
+			m_center1.x = monster1.i * 60 + 30;
+			m_center1.y = monster1.j * 60 + 30;
+
+			m_center2.x = monster2.i * 60 + 30;
+			m_center2.y = monster2.j * 60 + 30;
+
+			m_center3.x = monster3.i * 60 + 30;
+			m_center3.y = monster3.j * 60 + 30;
+
+			m_center4.x = monster4.i * 60 + 30;
+			m_center4.y = monster4.j * 60 + 30;
+
+
 			if (board[i][j] == 2) {
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
@@ -152,15 +242,52 @@ function Draw() {
 			} else if (board[i][j] == 1) {
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = AC_ball_25; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
+			}else if (board[i][j] == 3) {
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = AC_ball_15; //color
+				context.fill();
+			}else if (board[i][j] == 6) {
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = AC_ball_5; //color
+				context.fill();
 			}
 		}
+	}
+}
+
+function gameOver() {
+	if (time_elapsed > AC_timeout){
+		if (score > scoreToWin){
+			alert("Winner!!!");
+		}else{
+			alert("You are better then " + score + " points!");
+		}
+	}else if(pacmen_life === 0){
+		alert("loser!");
+	}else{
+		alert("Winner!!!");
+	}
+	window.clearInterval(interval);
+	window.clearInterval(monster1_interval);
+	window.clearInterval(monster1_interval);
+	window.clearInterval(monster1_interval);
+	window.clearInterval(monster1_interval);
+	var result = confirm("you are brave enough to play again?");
+	if (result === true){
+		Start();
+	}else{
+		alert("hope you enjoyed our game! see you soon :)");
+		currentPage.setPageName("Welcome");
+		changeDiv();
 	}
 }
 
@@ -188,17 +315,25 @@ function UpdatePosition() {
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {
-		score++;
+		score = score + 25;
+	}else if(board[shape.i][shape.j] == 3){
+		score = score + 15;
+	}else{
+		if (board[shape.i][shape.j] == 6){
+			score = score + 5;
+		}
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
+	if(time_elapsed > AC_timeout){
+		gameOver();
+	}
+	if (score >= 50 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score == 50) {
-		window.clearInterval(interval);
-		window.alert("Game completed");
+	if (score > scoreToWin) {
+		gameOver();
 	} else {
 		Draw();
 	}
@@ -215,11 +350,16 @@ var currentPage = {
 			$("#fname_error_message").hide();
 			$("#lname_error_message").hide();
 		}
-
 		if(newName === "loginView"){
 			document.getElementById("loginForm").reset();
 		}
-
+		if (this.newPageName === "gameView"){
+			window.clearInterval(interval);
+			window.clearInterval(monster1_interval);
+			window.clearInterval(monster1_interval);
+			window.clearInterval(monster1_interval);
+			window.clearInterval(monster1_interval);
+		}
 		this.oldPageName = this.newPageName;
 		this.newPageName = newName;
 	}
@@ -335,7 +475,6 @@ $(function() {
 				e.preventDefault();
 				currentPage.setPageName("Welcome");
 				changeDiv();
-
 			}
 		} else {
 			return false;
@@ -350,6 +489,7 @@ $(function() {
 			var password = document.getElementById("loginForm_password").value;
 			var username = document.getElementById("loginForm_username").value;
 			var userExist = false;
+			alert(usersDB.length);
 			usersDB.forEach(element=>{
 				if(element.userName === username && element.password === password){
 					userExist = true;
@@ -399,7 +539,7 @@ function copyData(element, target) {
 }
 
 function setBalls() {
-	ballsNumber = document.getElementById('range').value;
+	ballsNumber = parseInt(document.getElementById('range').value);
 }
 
 function setLength() {
@@ -489,7 +629,6 @@ function settingsConfirm(e, isRandom){
 function test(code,id) {
 	switch (id) {
 		case "buttonU":
-			alert(code);
 			moveUp = code;
 			break;
 		case "buttonL":
