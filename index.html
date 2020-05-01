@@ -7,6 +7,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     <script src="scripts/jquery-3.4.1.slim.min.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
@@ -41,11 +42,6 @@
             <br>
             <h5>PLAY</h5>
         </button>
-        <button type="button" id="logout" onclick="logOut()" hidden>
-            <img src="./resources/yellowGhost.png" alt="" width="70" height="70">
-            <br>
-            <h5>LOG OUT</h5>
-        </button>
         <button type="button" id="logIn">
             <img src="./resources/greenGhost.png" alt="" width="70" height="70">
             <br>
@@ -66,12 +62,17 @@
             <br>
             <h5>ABOUT</h5>
         </button>
+        <button type="button" id="logout" onclick="logOut()" hidden>
+            <img src="./resources/blueGhost.png" alt="" width="70" height="70">
+            <br>
+            <h5>LOG OUT</h5>
+        </button>
     </div>
 </div>
 <!-- Menu -->
 
 <!-- Welcome -->
-<div id="Welcome" align="center">
+<div id="Welcome"  align="center">
     <button type="button" id="welcome_register">
         <img src="./resources/register.png" alt="" width="300px">
         <h5 class="welcomeTitle">REGISTER</h5>
@@ -106,16 +107,39 @@
 
 <!-- Content -->
 <div id="gameView" align="center" hidden>
-    <div id="score">
-        <label for="lblScore">SCORE:</label>
-        <input id="lblScore" type="text"/>
+    <div></div>
+    <div id="gameViewMain">
+        <div id="game">
+            <canvas id="canvas" height="500" width="500"></canvas>
+        </div>
     </div>
-    <div id="time">
-        <label for="lblTime">TIME:</label>
-        <input id="lblTime" type="text"/>
-    </div>
-    <div id="game">
-        <canvas id="canvas" height="600" width="600"></canvas>
+    <div id="gameSettings">
+        <div id="avatar">
+            <img src="./resources/greenGhost.png" alt="" width="50">
+            David Fadida
+        </div>
+        <div id="score">
+            <label for="lblScore">SCORE : </label>
+            <input id="lblScore" type="text" disabled>
+            <br>
+            <label for="lblTime">TIME : </label>
+            <input id="lblTime" type="text" disabled>
+            <br>
+            <img src="./resources/life.png" alt="" width="25">
+            <img src="./resources/life.png" alt="" width="25">
+            <img src="./resources/life.png" alt="" width="25">
+            <img src="./resources/life.png" alt="" width="25">
+            <img src="./resources/life.png" alt="" width="25">
+        </div>
+        5 Points Ball <label id="colors_5_bind"></label>
+        <br>
+        15 Points Ball <label id="colors_15_bind"></label>
+        <br>
+        25 Points Ball <label id="colors_25_bind"></label>
+        <br>
+        Monsters <label id="monsters_bind"></label>
+        <br>
+        Game Length <label id="length_bind"></label>
     </div>
 </div>
 
@@ -154,7 +178,7 @@
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect01" required>
+                <select class="form-control selectpicker" id="inputGroupSelect01" required>
                     <option selected>Day</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -162,7 +186,7 @@
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect02" required>
+                <select class="form-control selectpicker" id="inputGroupSelect02" required>
                     <option selected>Month</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -170,7 +194,7 @@
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select" id="inputGroupSelect03" required>
+                <select class="form-control selectpicker" id="inputGroupSelect03" required>
                     <option selected>Year</option>
                     <option value="1">2000</option>
                     <option value="2">2001</option>
@@ -198,13 +222,13 @@
                         <button id="buttonU"><i class="fas fa-arrow-up i"></i></button>
                     </div>
                     <div class="box d">
-                        <button id="buttonL" onclick="test(event,this.id)"><i class="fas fa-arrow-left i"></i></button>
+                        <button id="buttonL"><i class="fas fa-arrow-left i"></i></button>
                     </div>
                     <div class="box e">
-                        <button id="buttonD" onclick="test(event,this.id)"><i class="fas fa-arrow-down i"></i></button>
+                        <button id="buttonD"><i class="fas fa-arrow-down i"></i></button>
                     </div>
                     <div class="box f">
-                        <button id="buttonR" onclick="test(event,this.id)"><i class="fas fa-arrow-right i"></i></button>
+                        <button id="buttonR"><i class="fas fa-arrow-right i"></i></button>
                     </div>
                 </div>
                 <h4>Monsters Configuration</h4>
@@ -215,7 +239,8 @@
                     </div>
                     <div class="box b">
                         <img src="./resources/blueGhost.png" height="50" width="50" alt="">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times" id="times_sign"></i>
+                        <span id="monsterAmount">1</span>
                     </div>
                     <div class="box f">
                         <button id="button4" onclick="moreMonsters(event)"><i class="fas fa-plus"></i></button>
@@ -259,7 +284,14 @@
                     </div>
                 </div>
                 <h4>Game Configuration</h4>
-                Game length <input type="number" min="60" value="60" id="gameLength">
+                <div class="row align-items-center mt-4" id="time">
+                    <div class="col">
+                        Game length  :
+                    </div>
+                    <div class="col">
+                        <input type="number" min="60" value="60" id="gameLength">
+                    </div>
+                </div>
                 <br>
             </div>
         </div>

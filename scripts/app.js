@@ -3,7 +3,7 @@ var context;
 // PacMan
 var shape = new Object();
 // 10*10 array
-var pacmen_life = 5;
+var PacMan_life = 5;
 var board;
 var score;
 var pac_color;
@@ -37,23 +37,12 @@ var AC_ball_5 = "#ffd737";
 var AC_ball_15 = "#8340ff";
 var AC_ball_25 = "#34ff1d";
 var AC_timeout = 60;
-var scoreToWin = 75;
+var scoreToWin = 300;
 // Settings Parameters
 const usersDB =[];
 var admin = {userName:"p",password:"p"};
 usersDB.push(admin);
-var controls = {
-	left: undefined,
-	right: undefined,
-	up: undefined,
-	down: undefined
-};
-
-
-
 var signedIn = false;
-
-
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -201,12 +190,12 @@ function GetKeyPressed() {
 function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
-	lblTime.value = time_elapsed;
+	lblTime.value = parseFloat(time_elapsed).toFixed(1);
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
-			center.x = i * 60 + 30;
-			center.y = j * 60 + 30;
+			center.x = i * 50 + 25;
+			center.y = j * 50 + 25;
 			//monsters
 			var m_center1 = new Object();
 
@@ -216,34 +205,34 @@ function Draw() {
 
 			var m_center4 = new Object();
 
-			m_center1.x = monster1.i * 60 + 30;
-			m_center1.y = monster1.j * 60 + 30;
+			m_center1.x = monster1.i * 50 + 25;
+			m_center1.y = monster1.j * 50 + 25;
 
-			m_center2.x = monster2.i * 60 + 30;
-			m_center2.y = monster2.j * 60 + 30;
+			m_center2.x = monster2.i * 50 + 25;
+			m_center2.y = monster2.j * 50 + 25;
 
-			m_center3.x = monster3.i * 60 + 30;
-			m_center3.y = monster3.j * 60 + 30;
+			m_center3.x = monster3.i * 50 + 25;
+			m_center3.y = monster3.j * 50 + 25;
 
-			m_center4.x = monster4.i * 60 + 30;
-			m_center4.y = monster4.j * 60 + 30;
+			m_center4.x = monster4.i * 50 + 25;
+			m_center4.y = monster4.j * 50 + 25;
 
 			if(monster1.i == i && monster1.j == j){
-				context.drawImage(monster1_image, m_center1.x -30, m_center1.y -30, canvas.width /10, canvas.height /10);
+				context.drawImage(monster1_image, m_center1.x -25, m_center1.y -25, canvas.width /10, canvas.height /10);
 			}
 			if(monster2.i == i && monster2.j == j){
-				context.drawImage(monster2_image, m_center2.x -30, m_center2.y -30, canvas.width /10, canvas.height /10);
+				context.drawImage(monster2_image, m_center2.x -25, m_center2.y -25, canvas.width /10, canvas.height /10);
 			}
 			if(monster3.i == i && monster3.j == j){
-				context.drawImage(monster3_image, m_center3.x -30, m_center3.y -30, canvas.width /10, canvas.height /10);
+				context.drawImage(monster3_image, m_center3.x -30, m_center3.y -25, canvas.width /10, canvas.height /10);
 			}
 			if(monster4.i == i && monster4.j == j){
-				context.drawImage(monster4_image, m_center4.x -30, m_center4.y -30, canvas.width /10, canvas.height /10);
+				context.drawImage(monster4_image, m_center4.x -25, m_center4.y -25, canvas.width /10, canvas.height /10);
 			}
 
 			if (board[i][j] == 2) {
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.arc(center.x, center.y, 25, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
@@ -258,7 +247,7 @@ function Draw() {
 				context.fill();
 			} else if (board[i][j] == 4) {
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
+				context.rect(center.x -25, center.y - 25, 50, 50);
 				context.fillStyle = "grey"; //color
 				context.fill();
 			}else if (board[i][j] == 3) {
@@ -283,7 +272,7 @@ function gameOver() {
 		}else{
 			alert("You are better then " + score + " points!");
 		}
-	}else if(pacmen_life === 0){
+	}else if(PacMan_life === 0){
 		alert("loser!");
 	}else{
 		alert("Winner!!!");
@@ -550,6 +539,10 @@ function copyData(element, target) {
 	document.getElementById(target).textContent = element.value;
 }
 
+function bindSettings(variable , target) {
+	document.getElementById(target).textContent = variable;
+}
+
 function setBalls() {
 	ballsNumber = parseInt(document.getElementById('range').value);
 }
@@ -604,15 +597,20 @@ function randomSettings(e){
 
 function commitChanges() {
 	AC_ball_5 = ball_5.toString();
+	bindSettings(AC_ball_5, "colors_5_bind");
 	AC_ball_15 = ball_15.toString();
+	bindSettings(AC_ball_15, "colors_15_bind");
 	AC_ball_25 = ball_25.toString();
+	bindSettings(AC_ball_25, "colors_25_bind");
 	AC_ballsNumber = ballsNumber;
 	AC_monsterNumber = monsterNumber;
+	bindSettings(AC_monsterNumber, "monsters_bind");
 	AC_moveDown = moveDown;
 	AC_moveUp = moveUp;
 	AC_moveRight = moveRight;
 	AC_moveLeft = moveLeft;
 	AC_timeout = timeout;
+	bindSettings(AC_timeout, "length_bind");
 }
 
 function settingsConfirm(e, isRandom){

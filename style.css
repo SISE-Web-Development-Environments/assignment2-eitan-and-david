@@ -177,6 +177,7 @@ input, textarea {
 #birthday,
 #colors_5,
 #balls,
+#time,
 #colors_15,
 #colors_25 {
     margin: 0 13% !important;
@@ -185,6 +186,7 @@ input, textarea {
 
 #birthday .col,
 #colors_5 .col,
+#time .col,
 #balls .col,
 #colors_15 .col,
 #colors_25 .col {
@@ -220,25 +222,29 @@ input, textarea {
 #moreWrapper {
     display: grid;
     justify-content: center;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 10% 30% 10%;
     grid-gap: 0;
     background-color: transparent;
-    color: #444;
-    padding-left: 5%;
+    color: aliceblue;
+    /*padding-left: 5%;*/
+}
+
+#moreWrapper .b {
+    margin-right: 7px;
 }
 
 #wrapper {
     display: grid;
     justify-content: center;
-    grid-template-columns: 22% 22% 22% 22%;
+    grid-template-columns: 15% 15% 15% 15%;
     grid-gap: 0;
     background-color: transparent;
     color: #444;
-    padding-left: 5%;
+    padding-left: 2%;
 }
 
 #moreWrapper.box,
-#wrapper .box{
+#wrapper .box {
     background-color: transparent;
     color: #fff;
     border-radius: 5px;
@@ -250,6 +256,7 @@ input, textarea {
 
 #moreWrapper .box button,
 #wrapper .box button {
+    display: flex;
     justify-content: center;
     align-items: center;
     color: aliceblue;
@@ -262,6 +269,28 @@ input, textarea {
 
 #moreWrapper .box .i,
 #wrapper .box .i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#times_sign {
+    margin-left: 7px !important;
+    margin-right: 7px !important;
+}
+
+#moreWrapper .i {
+    color: aliceblue;
+}
+
+#monsterAmount {
+    color: aliceblue;
+    font-size: 2.3em;
+    font-family: 'Bangers', cursive;
+}
+
+#moreWrapper .box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -328,4 +357,69 @@ h5.welcomeTitle:hover {
     opacity: 1;
     font-size: 2rem;
     margin-top: -0.9em;
+}
+
+#lblScore {
+    background-color: transparent;
+    border: none !important;
+    color: aliceblue;
+    width: 40px;
+}
+
+#lblTime {
+    background-color: transparent;
+    border: none !important;
+    color: aliceblue;
+    width: 50px;
+}
+
+#gameView {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 15% 40% 15%;
+    color: aliceblue;
+    font-size: 1.3em;
+    margin-top: 1.5em;
+}
+
+#gameSettings {
+    background-color: rgba(34, 34, 34, 0.51);
+    box-shadow: 0 1px 10px rgba(20, 20, 20, 0.56) !important;
+}
+
+#score {
+    background-color: rgba(34, 34, 34, 0.51);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+#score img {
+    margin-top: -0.9em;
+}
+
+#avatar img {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#avatar {
+    border-bottom: aliceblue 1px solid;
+    border-top: aliceblue 1px solid;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#canvas {
+    background-color: rgba(34, 34, 34, 0.51);
+    padding: 6px;
+}
+
+#inputGroupSelect01.dropdown-menu > li > a:hover,
+#inputGroupSelect01 .dropdown-menu > li > a:focus {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    background-color: #f3969a !important;
 }
