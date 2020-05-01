@@ -3,7 +3,7 @@ var context;
 // PacMan
 var shape = new Object();
 // 10*10 array
-var PacMan_life = 5;
+var pacmen_life = 5;
 var board;
 var score;
 var pac_color;
@@ -37,7 +37,8 @@ var AC_ball_5 = "#ffd737";
 var AC_ball_15 = "#8340ff";
 var AC_ball_25 = "#34ff1d";
 var AC_timeout = 60;
-var scoreToWin = 300;
+var scoreToWin = 75;
+var AC_food_remain;
 // Settings Parameters
 const usersDB =[];
 var admin = {userName:"p",password:"p"};
@@ -145,23 +146,212 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 250);
-	monster1_interval = setInterval(updatePositionMonster,600);
+	monster1_interval = setInterval(updatePositionMonster1,600);
 	if (AC_monsterNumber == 2){
-		monster2_interval = setInterval(updatePositionMonster,600);
+		monster2_interval = setInterval(updatePositionMonster2,750);
 	}else if (AC_monsterNumber == 3){
-		monster2_interval = setInterval(updatePositionMonster,600);
-		monster3_interval = setInterval(updatePositionMonster,600);
-	}else{
-		monster2_interval = setInterval(updatePositionMonster,600);
-		monster3_interval = setInterval(updatePositionMonster,600);
-		monster4_interval = setInterval(updatePositionMonster,600);
+		monster2_interval = setInterval(updatePositionMonster2,800);
+		monster3_interval = setInterval(updatePositionMonster3,800);
+	}else if(AC_monsterNumber == 3){
+		monster2_interval = setInterval(updatePositionMonster2,800);
+		monster3_interval = setInterval(updatePositionMonster3,800);
+		monster4_interval = setInterval(updatePositionMonster4,800);
 	}
 }
 
-function updatePositionMonster(){
-
+function boom() {
+	pacmen_life--;
+	window.clearInterval(interval);
+	window.clearInterval(monster1_interval);
+	window.clearInterval(monster2_interval);
+	window.clearInterval(monster3_interval);
+	window.clearInterval(monster4_interval);
+	score = score - 10;
+	if (pacmen_life === 0){
+		gameOver();
+	}else{
+		window.alert("hit!");
+		Start();
+	}
 }
 
+function updatePositionMonster1(){
+	var delta_y = shape.i - monster1.i;
+	var delta_x = shape.j - monster1.j;
+	if (Math.abs(delta_x) > Math.abs(delta_y)){
+		if (delta_x > 0){
+			if ((monster1.j < 9) && board[monster1.i][monster1.j + 1] !== 4){
+				monster1.j++;
+			}else if ((monster1.i < 9) &&board[monster1.i + 1][monster1.j]  !== 4){// pass wall - down
+				monster1.i++;
+			}
+		}else{
+			if ((monster1.j > 0) && board[monster1.i][monster1.j - 1] !== 4){
+				monster1.j--;
+			}else if ((monster1.i < 9) &&board[monster1.i + 1][monster1.j]  !== 4) {// pass wall - down
+				monster1.i++;
+			}
+		}
+	}else{
+		if (delta_y > 0){
+			if ((monster1.i < 9) && board[monster1.i + 1][monster1.j] !== 4){
+				monster1.i++;
+			}else if ((monster1.j > 0) &&board[monster1.i][monster1.j - 1]  !== 4){// pass wall - right
+				monster1.j--;
+			}
+		}else{
+			if ((monster1.i > 0) && board[monster1.i - 1][monster1.j] !== 4){
+				monster1.i--;
+			}else if ((monster1.j > 0) &&board[monster1.i][monster1.j - 1]  !== 4){// pass wall - right
+				monster1.j--;
+			}
+		}
+	}
+	if (monster1.i === shape.i && monster1.j === shape.j){
+		boom();
+	}else{
+		Draw();
+	}
+}
+
+function updatePositionMonster2(){
+	var delta_y = shape.i - monster2.i;
+	var delta_x = shape.j - monster2.j;
+	if (Math.abs(delta_x) > Math.abs(delta_y)){
+		if (delta_x > 0){
+			if ((monster2.j < 9) && board[monster2.i][monster2.j + 1] !== 4){
+				monster2.j++;
+			}else if ((monster2.i < 9) &&board[monster2.i + 1][monster2.j]  !== 4){// pass wall - down
+				monster2.i++;
+			}else{// pass wall - up
+				monster2.i--;
+			}
+		}else{
+			if ((monster2.j > 0) && board[monster2.i][monster2.j - 1] !== 4){
+				monster2.j--;
+			}else if ((monster2.i < 9) &&board[monster2.i + 1][monster2.j]  !== 4){// pass wall - down
+				monster2.i++;
+			}else{// pass wall - up
+				monster2.j--;
+			}
+		}
+	}else{
+		if (delta_y > 0){
+			if ((monster2.i < 9) && board[monster2.i + 1][monster2.j] !== 4){
+				monster2.i++;
+			}else if ((monster2.j < 9) &&board[monster2.i][monster2.j + 1]  !== 4){// pass wall - right
+				monster2.j++;
+			}else{// pass wall - left
+				monster2.j++;
+			}
+		}else{
+			if ((monster2.i > 0) && board[monster2.i - 1][monster2.j] !== 4){
+				monster2.i--;
+			}else if ((monster2.j < 9) &&board[monster2.i][monster2.j + 1]  !== 4){// pass wall - right
+				monster2.j++;
+			}else{// pass wall - left
+				monster2.j++;
+			}
+		}
+	}
+	if (monster2.i === shape.i && monster2.j === shape.j){
+		boom();
+	}else{
+		Draw();
+	}
+}
+function updatePositionMonster3(){
+	var delta_y = shape.i - monster3.i;
+	var delta_x = shape.j - monster3.j;
+	if (Math.abs(delta_x) > Math.abs(delta_y)){
+		if (delta_x > 0){
+			if ((monster3.j < 9) && board[monster3.i][monster3.j + 1] !== 4){
+				monster3.j++;
+			}else if ((monster3.i < 9) &&board[monster3.i + 1][monster3.j]  !== 4){// pass wall - down
+				monster3.i++;
+			}else{// pass wall - up
+				monster3.i--;
+			}
+		}else{
+			if ((monster3.j > 0) && board[monster3.i][monster3.j - 1] !== 4){
+				monster3.j--;
+			}else if ((monster3.i < 9) &&board[monster3.i + 1][monster3.j]  !== 4){// pass wall - down
+				monster3.i++;
+			}else{// pass wall - up
+				monster3.j--;
+			}
+		}
+	}else{
+		if (delta_y > 0){
+			if ((monster3.i < 9) && board[monster3.i + 1][monster3.j] !== 4){
+				monster3.i++;
+			}else if ((monster3.j < 9) &&board[monster3.i][monster3.j + 1]  !== 4){// pass wall - right
+				monster3.j++;
+			}else{// pass wall - left
+				monster3.j++;
+			}
+		}else{
+			if ((monster3.i > 0) && board[monster3.i - 1][monster3.j] !== 4){
+				monster3.i--;
+			}else if ((monster3.j < 9) &&board[monster3.i][monster3.j + 1]  !== 4){// pass wall - right
+				monster3.j++;
+			}else{// pass wall - left
+				monster3.j++;
+			}
+		}
+	}
+	if (monster3.i === shape.i && monster3.j === shape.j){
+		boom();
+	}else{
+		Draw();
+	}
+
+function updatePositionMonster4(){
+	var delta_y = shape.i - monster4.i;
+	var delta_x = shape.j - monster4.j;
+	if (Math.abs(delta_x) > Math.abs(delta_y)){
+		if (delta_x > 0){
+			if ((monster4.j < 9) && board[monster4.i][monster4.j + 1] !== 4){
+				monster1.j++;
+			}else if ((monster4.i < 9) &&board[monster4.i + 1][monster4.j]  !== 4){// pass wall - down
+				monster4.i++;
+			}else{// pass wall - up
+				monster4.i--;
+			}
+		}else{
+			if ((monster4.j > 0) && board[monster4.i][monster4.j - 1] !== 4){
+				monster4.j--;
+			}else if ((monster4.i < 9) &&board[monster4.i + 1][monster4.j]  !== 4){// pass wall - down
+				monster4.i++;
+			}else{// pass wall - up
+				monster4.j--;
+			}
+		}
+	}else{
+		if (delta_y > 0){
+			if ((monster4.i < 9) && board[monster4.i + 1][monster4.j] !== 4){
+				monster4.i++;
+			}else if ((monster4.j < 9) &&board[monster4.i][monster4.j + 1]  !== 4){// pass wall - right
+				monster4.j++;
+			}else{// pass wall - left
+				monster4.j++;
+			}
+		}else{
+			if ((monster4.i > 0) && board[monster4.i - 1][monster4.j] !== 4){
+				monster4.i--;
+			}else if ((monster4.j < 9) &&board[monster4.i][monster4.j + 1]  !== 4){// pass wall - right
+				monster4.j++;
+			}else{// pass wall - left
+				monster4.j++;
+			}
+		}
+	}
+	if (monster4.i === shape.i && monster4.j === shape.j){
+		boom();
+	}else{
+		Draw();
+	}
+}
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
@@ -261,6 +451,18 @@ function Draw() {
 				context.fillStyle = AC_ball_5; //color
 				context.fill();
 			}
+			if(monster1.i == i && monster1.j == j){
+				context.drawImage(monster1_image, m_center1.x -30, m_center1.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster2.i == i && monster2.j == j && AC_monsterNumber > 1){
+				context.drawImage(monster2_image, m_center2.x -30, m_center2.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster3.i == i && monster3.j == j && AC_monsterNumber > 2){
+				context.drawImage(monster3_image, m_center3.x -30, m_center3.y -30, canvas.width /10, canvas.height /10);
+			}
+			if(monster4.i == i && monster4.j == j && AC_monsterNumber > 3){
+				context.drawImage(monster4_image, m_center4.x -30, m_center4.y -30, canvas.width /10, canvas.height /10);
+			}
 		}
 	}
 }
@@ -272,16 +474,16 @@ function gameOver() {
 		}else{
 			alert("You are better then " + score + " points!");
 		}
-	}else if(PacMan_life === 0){
+	}else if(pacmen_life === 0){
 		alert("loser!");
 	}else{
 		alert("Winner!!!");
 	}
 	window.clearInterval(interval);
 	window.clearInterval(monster1_interval);
-	window.clearInterval(monster1_interval);
-	window.clearInterval(monster1_interval);
-	window.clearInterval(monster1_interval);
+	window.clearInterval(monster2_interval);
+	window.clearInterval(monster3_interval);
+	window.clearInterval(monster4_interval);
 	var result = confirm("you are brave enough to play again?");
 	if (result === true){
 		Start();
@@ -357,9 +559,9 @@ var currentPage = {
 		if (this.newPageName === "gameView"){
 			window.clearInterval(interval);
 			window.clearInterval(monster1_interval);
-			window.clearInterval(monster1_interval);
-			window.clearInterval(monster1_interval);
-			window.clearInterval(monster1_interval);
+			window.clearInterval(monster2_interval);
+			window.clearInterval(monster3_interval);
+			window.clearInterval(monster4_interval);
 		}
 		this.oldPageName = this.newPageName;
 		this.newPageName = newName;
@@ -512,7 +714,7 @@ $(function() {
 			}
 		});
 	});
-	
+
 
 	function logOut(){
 		document.getElementById("logout").hidden = true;
@@ -651,5 +853,6 @@ function test(code,id) {
 			moveRight = code;
 			break;
 	}
-}
+}}
+
 // SETTINGS
