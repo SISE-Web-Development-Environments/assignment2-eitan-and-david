@@ -3,7 +3,9 @@ var context;
 // PacMan
 var shape = new Object();
 // 10*10 array
-var pacmen_life = 5;
+var eaten = false;
+var extraLifeCell;
+var pacmen_life = 2;
 var board;
 var score;
 var pac_color;
@@ -14,18 +16,24 @@ var monster1_interval;
 var monster2_interval;
 var monster3_interval;
 var monster4_interval;
+var extraLife_interval;
 var monster1_image = new Image();
 var monster2_image = new Image();
 var monster3_image = new Image();
 var monster4_image = new Image();
+var extraLife_image = new Image();
+extraLife_image.src = "./resources/pacman-clipart-cherry-7.png";
 monster1_image.src = "./resources/blueGhost.png";
 monster2_image.src = "./resources/yellowGhost.png";
 monster3_image.src = "./resources/redGhost.png";
 monster4_image.src = "./resources/greenGhost.png";
+//monsters objects
 var monster1 = new Object();
 var monster2 = new Object();
 var monster3 = new Object();
 var monster4 = new Object();
+//special objects
+var extraLife = new Object();
 // Settings Parameters
 var AC_moveUp = 38; //
 var AC_moveDown = 40; //
@@ -76,15 +84,15 @@ function Start() {
                 (i === 0 && j === 9)) {
                 monster1.i = 9;
                 monster1.j = 9;
-                if (AC_monsterNumber == 2) {
+                if (AC_monsterNumber === 2) {
                     monster2.i = 0;
                     monster2.j = 0;
-                } else if (AC_monsterNumber == 3) {
+                } else if (AC_monsterNumber === 3) {
                     monster2.i = 0;
                     monster2.j = 0;
                     monster3.i = 0;
                     monster3.j = 9;
-                } else {
+                } else if(AC_monsterNumber === 4) {
                     monster2.i = 0;
                     monster2.j = 0;
                     monster3.i = 0;
@@ -129,6 +137,9 @@ function Start() {
         shape.j = packman_emptyCell[1];
         pacman_remain--;
     }
+
+    extraLifeCell = findRandomEmptyCell(board);
+
     keysDown = {};
     addEventListener(
         "keydown",
@@ -151,7 +162,7 @@ function Start() {
     } else if (AC_monsterNumber == 3) {
         monster2_interval = setInterval(updatePositionMonster2, 600);
         monster3_interval = setInterval(updatePositionMonster3, 600);
-    } else if (AC_monsterNumber == 3) {
+    } else if (AC_monsterNumber == 4) {
         monster2_interval = setInterval(updatePositionMonster2, 600);
         monster3_interval = setInterval(updatePositionMonster3, 600);
         monster4_interval = setInterval(updatePositionMonster4, 600);
@@ -313,7 +324,7 @@ function updatePositionMonster4() {
     if (Math.abs(delta_x) > Math.abs(delta_y)) {
         if (delta_x > 0) {
             if ((monster4.j < 9) && board[monster4.i][monster4.j + 1] !== 4) {
-                monster1.j++;
+                monster4.j++;
             } else if ((monster4.i < 9) && board[monster4.i + 1][monster4.j] !== 4) {// pass wall - down
                 monster4.i++;
             } else {// pass wall - up
@@ -354,6 +365,65 @@ function updatePositionMonster4() {
     }
 }
 
+function extraLifeToAdd() {
+    eaten = true;
+    pacmen_life++;
+    window.clearInterval(interval);
+    window.clearInterval(monster1_interval);
+    window.clearInterval(monster2_interval);
+    window.clearInterval(monster3_interval);
+    window.clearInterval(monster4_interval);
+    alert("extra life added!");
+    Start();
+}
+/**
+function updateExtraLifePosition() {
+    var delta_y = extraLife.i - shape.i;
+    var delta_x = extraLife.j - shape.j;
+    if (Math.abs(delta_x) > Math.abs(delta_y)){
+        if (delta_x > 0){
+            if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
+                extraLife.j++;
+            }else if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
+                extraLife.i++;
+            }else{
+                extraLife.i--;
+            }
+        }else{
+            if (extraLife.j >0 && board[extraLife.i][extraLife.j - 1] != 4){
+                extraLife.j--;
+            }else if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
+                extraLife.i++;
+            }else{
+                extraLife.i--;
+            }
+        }
+    }else{
+        if (delta_y > 0){
+            if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
+                extraLife.i++;
+            }else if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
+                extraLife.j++;
+            }else{
+                extraLife.j--;
+            }
+        }else{
+            if (extraLife.i > 0 && board[extraLife.i - 1][extraLife.j] != 4){
+                extraLife.j--;
+            }else if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
+                extraLife.j++;
+            }else{
+                extraLife.j--;
+            }
+        }
+    }
+    if (extraLife.i === shape.i && extraLife.j === shape.j) {
+        extraLifeToAdd();
+    } else {
+        Draw();
+    }
+}
+**/
 function findRandomEmptyCell(board) {
     var i = Math.floor(Math.random() * 9 + 1);
     var j = Math.floor(Math.random() * 9 + 1);
@@ -397,6 +467,8 @@ function Draw() {
 
             var m_center4 = new Object();
 
+            var lifeCenter = new Object();
+
             m_center1.x = monster1.i * 60 + 30;
             m_center1.y = monster1.j * 60 + 30;
 
@@ -408,6 +480,10 @@ function Draw() {
 
             m_center4.x = monster4.i * 60 + 30;
             m_center4.y = monster4.j * 60 + 30;
+
+            lifeCenter.x = extraLifeCell[0] * 60 + 30;
+            lifeCenter.y = extraLifeCell[1] * 60 + 30;
+
 
             if (board[i][j] == 2) {
                 context.beginPath();
@@ -451,6 +527,11 @@ function Draw() {
             }
             if (monster4.i == i && monster4.j == j && AC_monsterNumber > 3) {
                 context.drawImage(monster4_image, m_center4.x - 30, m_center4.y - 30, canvas.width / 10, canvas.height / 10);
+            }
+            if (!eaten && pacmen_life === 1){
+                extraLife.i = extraLifeCell[0];
+                extraLife.j = extraLifeCell[1];
+                context.drawImage(extraLife_image, lifeCenter.x - 30, lifeCenter.y - 30, canvas.width / 10, canvas.height / 10)
             }
         }
     }
@@ -505,6 +586,9 @@ function UpdatePosition() {
         if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
             shape.i++;
         }
+    }
+    if (shape.i === extraLife.i && shape.j === extraLife.j){
+        extraLifeToAdd();
     }
     if (board[shape.i][shape.j] == 1) {
         score = score + 25;
