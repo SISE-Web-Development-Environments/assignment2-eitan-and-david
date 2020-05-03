@@ -3,11 +3,13 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.5.0.js"
             integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
     <script src="scripts/jquery-3.4.1.slim.min.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
@@ -19,16 +21,13 @@
 <body>
 <!-- Header - LOGO and App Name	-->
 <div id="header">
-    <nav class="navbar navbar-dark bg-dark justify-content-center">
-        <div class="justify-content-center">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1 align="center">PacMan</h1>
-                </div>
-                <div class="col-sm-6">
-                    <h5> EITAN PLATOK <br> DAVID FADIDA <br></h5>
-                </div>
-            </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="col"></div>
+        <div class="col">
+            <h1 align="center">PACMAN</h1>
+        </div>
+        <div class="col">
+            <h5> Eitan Platok 313125353 <br> David Fadida 208161802 <br></h5>
         </div>
     </nav>
 </div>
@@ -71,8 +70,35 @@
 </div>
 <!-- Menu -->
 
-<!-- Welcome -->
-<div id="Welcome"  align="center">
+<!-- About	-->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" id="modalStyle">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>About</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Created by Eitan Platok and David Fadida
+                    <br>
+                    JQuery Plugin: XXX X.0.1
+                    <br>
+                    Template: Bootstrap 4.1
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+
+<div id="Welcome" align="center">
+    <span>
+        <br><br><br>
+    </span>
     <button type="button" id="welcome_register">
         <img src="./resources/register.png" alt="" width="300px">
         <h5 class="welcomeTitle">REGISTER</h5>
@@ -82,35 +108,12 @@
         <h5 class="welcomeTitle">LOGIN</h5>
     </button>
 </div>
-<!-- Welcome -->
 
-<!-- About	-->
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Content -->
 <div id="gameView" align="center" hidden>
     <div></div>
     <div id="gameViewMain">
         <div id="game">
-            <canvas id="canvas" height="500" width="500"></canvas>
+            <canvas id="canvas" height="600" width="600"></canvas>
         </div>
     </div>
     <div id="gameSettings">
@@ -131,11 +134,11 @@
             <img src="./resources/life.png" alt="" width="25">
             <img src="./resources/life.png" alt="" width="25">
         </div>
-        5 Points Ball <label id="colors_5_bind"></label>
+        5 Points Ball <span class="dot" id="colors_5_bind"></span>
         <br>
-        15 Points Ball <label id="colors_15_bind"></label>
+        15 Points Ball <span class="dot" id="colors_15_bind"></span>
         <br>
-        25 Points Ball <label id="colors_25_bind"></label>
+        25 Points Ball <span class="dot" id="colors_25_bind"></span>
         <br>
         Monsters <label id="monsters_bind"></label>
         <br>
@@ -187,7 +190,7 @@
             </div>
             <div class="col">
                 <select class="form-control selectpicker" id="inputGroupSelect02" required>
-                    <option selected>Month</option>
+                    <option disabled selected>Month</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -195,7 +198,7 @@
             </div>
             <div class="col">
                 <select class="form-control selectpicker" id="inputGroupSelect03" required>
-                    <option selected>Year</option>
+                    <option disabled selected>Year</option>
                     <option value="1">2000</option>
                     <option value="2">2001</option>
                     <option value="3">2002</option>
@@ -214,7 +217,7 @@
             <h2>SETTINGS</h2>
         </div>
         <div class="row">
-            <div class="col" style="border-right: aliceblue 2px solid">
+            <div class="col" style="border-right: aliceblue 1px solid">
                 <h4>Movement Configuration</h4>
                 Select direction <br> Then press the new key
                 <div id="wrapper">
@@ -238,25 +241,23 @@
                         <button id="button2" onclick="lessMonsters(event)"><i class="fas fa-minus"></i></button>
                     </div>
                     <div class="box b">
-                        <img src="./resources/blueGhost.png" height="50" width="50" alt="">
-                        <i class="fas fa-times" id="times_sign"></i>
-                        <span id="monsterAmount">1</span>
+                        <img src="./resources/brownGhost.png" height="50" width="50" alt="">
+                        <span id="monsterAmount">x 1</span>
                     </div>
                     <div class="box f">
                         <button id="button4" onclick="moreMonsters(event)"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="col" style="border-left: aliceblue 2px solid">
-                <h4>Balls Configuration</h4>
-                Select balls number and colors
+            <div class="col" style="border-left: aliceblue 1px solid">
+                <h4>Game Configuration</h4>
                 <div class="row align-items-center mt-4" id="balls">
                     <div class="col">
                         Balls : <span id="copyTarget">50</span>
                     </div>
                     <div class="col">
                         <input id="range" type="range" value="50" min="50" max="90"
-                               class="form-control slider" onchange="copyData(this,'copyTarget')">
+                               class="custom-range slider" onchange="copyData(this,'copyTarget')">
                     </div>
                 </div>
                 <div class="row align-items-center mt-4" id="colors_5">
@@ -264,7 +265,7 @@
                         5 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="5pts" onchange="setColor(1)">
+                        <input type="color" class="form-control" required id="5pts" onchange="setColor(1)" value="#377d43">
                     </div>
                 </div>
                 <div class="row align-items-center mt-4" id="colors_15">
@@ -272,7 +273,7 @@
                         15 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="15pts" onchange="setColor(2)">
+                        <input type="color" class="form-control" required id="15pts" onchange="setColor(2)" value="#3f657d">
                     </div>
                 </div>
                 <div class="row align-items-center mt-4" id="colors_25">
@@ -280,16 +281,22 @@
                         25 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="25pts" onchange="setColor(3)">
+                        <input type="color" class="form-control" required id="25pts" onchange="setColor(3)" value="#7d5d65">
                     </div>
                 </div>
-                <h4>Game Configuration</h4>
-                <div class="row align-items-center mt-4" id="time">
-                    <div class="col">
-                        Game length  :
-                    </div>
-                    <div class="col">
-                        <input type="number" min="60" value="60" id="gameLength">
+                <!--                <h4>Game Configuration</h4>-->
+                <div id="time">
+                    Game length
+                    <div id="moreWrapper2" class="rating">
+                        <div class="box d">
+                            <button onclick="lessTime(event)"><i class="fas fa-minus"></i></button>
+                        </div>
+                        <div class="box b">
+                            <span id="gameLength">60 sec</span>
+                        </div>
+                        <div class="box f">
+                            <button onclick="moreTime(event)"><i class="fas fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -311,8 +318,10 @@
 <!-- Footer -->
 <div id="footer">
     <div class="jumbotron container" id="footerContent">
-        <h4> PacMan - Version 1.0.1</h4>
-        <h6> Created By Eitan and David LTD</h6>
+        <div class="row justify-content-center">
+            <h4> PACMAN - Version 1.0.1</h4>
+            <h6> Created By Eitan and David LTD</h6>
+        </div>
     </div>
 </div>
 <!-- Footer -->
@@ -331,35 +340,35 @@
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/f6a2967fd7.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    document.getElementById("register").addEventListener('click',function () {
+    document.getElementById("register").addEventListener('click', function () {
         currentPage.setPageName("registerView");
         changeDiv();
     });
 
-    document.getElementById("logIn").addEventListener('click',function () {
+    document.getElementById("logIn").addEventListener('click', function () {
         currentPage.setPageName("loginView");
         changeDiv();
     });
 
-    document.getElementById("settings").addEventListener('click',function () {
+    document.getElementById("settings").addEventListener('click', function () {
         currentPage.setPageName("settingsView");
         changeDiv();
     });
 
-    document.getElementById("welcome_register").addEventListener('click',function () {
+    document.getElementById("welcome_register").addEventListener('click', function () {
         currentPage.setPageName("registerView");
         document.getElementById("mainMenu").hidden = false;
         changeDiv();
     });
 
-    document.getElementById("welcome_login").addEventListener('click',function () {
+    document.getElementById("welcome_login").addEventListener('click', function () {
         currentPage.setPageName("loginView");
         document.getElementById("mainMenu").hidden = false;
         changeDiv();
     });
 
-    document.getElementById("play").addEventListener('click',function () {
-        if(signedIn){
+    document.getElementById("play").addEventListener('click', function () {
+        if (signedIn) {
             currentPage.setPageName("gameView");
             changeDiv();
             Start();
@@ -368,38 +377,38 @@
         }
     });
 
-    document.getElementById("buttonU").addEventListener('click', function(event){
+    document.getElementById("buttonU").addEventListener('click', function (event) {
         event.preventDefault();
-        document.addEventListener('keydown', function davidFunction (e){
-            keyUpdateListener(e,"buttonU");
-            document.removeEventListener('keydown', davidFunction );
+        document.addEventListener('keydown', function davidFunction(e) {
+            keyUpdateListener(e, "buttonU");
+            document.removeEventListener('keydown', davidFunction);
         });
         document.getElementById("buttonU").blur();
     });
 
-    document.getElementById("buttonL").addEventListener('click', function(event){
+    document.getElementById("buttonL").addEventListener('click', function (event) {
         event.preventDefault();
-        document.addEventListener('keydown', function davidFunction (e){
-            keyUpdateListener(e,"buttonL");
-            document.removeEventListener('keydown', davidFunction );
+        document.addEventListener('keydown', function davidFunction(e) {
+            keyUpdateListener(e, "buttonL");
+            document.removeEventListener('keydown', davidFunction);
         });
         document.getElementById("buttonL").blur();
     });
 
-    document.getElementById("buttonR").addEventListener('click', function(event){
+    document.getElementById("buttonR").addEventListener('click', function (event) {
         event.preventDefault();
-        document.addEventListener('keydown', function davidFunction (e){
-            keyUpdateListener(e,"buttonR");
-            document.removeEventListener('keydown', davidFunction );
+        document.addEventListener('keydown', function davidFunction(e) {
+            keyUpdateListener(e, "buttonR");
+            document.removeEventListener('keydown', davidFunction);
         });
         document.getElementById("buttonR").blur();
     });
 
-    document.getElementById("buttonD").addEventListener('click', function(event){
+    document.getElementById("buttonD").addEventListener('click', function (event) {
         event.preventDefault();
-        document.addEventListener('keydown', function davidFunction (e){
-            keyUpdateListener(e,"buttonD");
-            document.removeEventListener('keydown', davidFunction );
+        document.addEventListener('keydown', function davidFunction(e) {
+            keyUpdateListener(e, "buttonD");
+            document.removeEventListener('keydown', davidFunction);
         });
         document.getElementById("buttonD").blur();
     });

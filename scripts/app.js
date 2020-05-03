@@ -33,9 +33,9 @@ var AC_moveRight = 39; //
 var AC_moveLeft = 37; //
 var AC_monsterNumber = 1;
 var AC_ballsNumber = 50;
-var AC_ball_5 = "#ffd737";
-var AC_ball_15 = "#8340ff";
-var AC_ball_25 = "#34ff1d";
+var AC_ball_5 = "#377d43";
+var AC_ball_15 = "#3f657d";
+var AC_ball_25 = "#7d5d65";
 var AC_timeout = 60;
 var scoreToWin = 1000;
 var AC_food_remain;
@@ -386,8 +386,8 @@ function Draw() {
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {
             var center = new Object();
-            center.x = i * 50 + 25;
-            center.y = j * 50 + 25;
+            center.x = i * 60 + 30;
+            center.y = j * 60 + 30;
             //monsters
             var m_center1 = new Object();
 
@@ -397,21 +397,21 @@ function Draw() {
 
             var m_center4 = new Object();
 
-            m_center1.x = monster1.i * 50 + 25;
-            m_center1.y = monster1.j * 50 + 25;
+            m_center1.x = monster1.i * 60 + 30;
+            m_center1.y = monster1.j * 60 + 30;
 
-            m_center2.x = monster2.i * 50 + 25;
-            m_center2.y = monster2.j * 50 + 25;
+            m_center2.x = monster2.i * 60 + 30;
+            m_center2.y = monster2.j * 60 + 30;
 
-            m_center3.x = monster3.i * 50 + 25;
-            m_center3.y = monster3.j * 50 + 25;
+            m_center3.x = monster3.i * 60 + 30;
+            m_center3.y = monster3.j * 60 + 30;
 
-            m_center4.x = monster4.i * 50 + 25;
-            m_center4.y = monster4.j * 50 + 25;
+            m_center4.x = monster4.i * 60 + 30;
+            m_center4.y = monster4.j * 60 + 30;
 
             if (board[i][j] == 2) {
                 context.beginPath();
-                context.arc(center.x, center.y, 25, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
                 context.lineTo(center.x, center.y);
                 context.fillStyle = pac_color; //color
                 context.fill();
@@ -426,7 +426,7 @@ function Draw() {
                 context.fill();
             } else if (board[i][j] == 4) {
                 context.beginPath();
-                context.rect(center.x - 25, center.y - 25, 50, 50);
+                context.rect(center.x - 30, center.y - 30, 60, 60);
                 context.fillStyle = "grey"; //color
                 context.fill();
             } else if (board[i][j] == 3) {
@@ -721,14 +721,14 @@ var ballsNumber;
 var ball_5 = "A33643";
 var ball_15 = "256E5C";
 var ball_25 = "F4A000";
-var timeout;
+var timeout = 60;
 
 function copyData(element, target) {
     document.getElementById(target).textContent = element.value;
 }
 
 function bindSettings(variable, target) {
-    document.getElementById(target).textContent = variable;
+    document.getElementById(target).style.backgroundColor = variable;
 }
 
 function setBalls() {
@@ -757,14 +757,28 @@ function moreMonsters(e) {
     e.preventDefault();
     if (monsterNumber < 4)
         monsterNumber++;
-    console.log(monsterNumber)
+    document.getElementById("monsterAmount").textContent = "x " + monsterNumber;
+}
+
+function moreTime(e) {
+    e.preventDefault();
+    if (timeout < 300)
+        timeout++;
+    document.getElementById("gameLength").textContent = timeout + " sec";
 }
 
 function lessMonsters(e) {
     e.preventDefault();
     if (monsterNumber > 1)
         monsterNumber--;
-    console.log(monsterNumber)
+    document.getElementById("monsterAmount").textContent = "x " + monsterNumber;
+}
+
+function lessTime(e) {
+    e.preventDefault();
+    if (timeout > 60)
+        timeout--;
+    document.getElementById("gameLength").textContent = timeout + " sec";
 }
 
 function randomSettings(e) {

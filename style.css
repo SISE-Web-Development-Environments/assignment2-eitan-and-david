@@ -12,10 +12,11 @@ body {
 }
 
 #header h1 {
-    font-family: 'Monoton', cursive;
+    font-family: 'Acme', sans-serif;
     font-weight: 300;
-    font-size: 3.5em;
-    padding-top: 1.4rem;
+    font-size: 3.8em;
+    padding-top: 1.3rem;
+    letter-spacing: 4px;
 }
 
 #header h5 {
@@ -23,7 +24,9 @@ body {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 2rem;
-    border-left: #FFFFFF solid 2px;
+    border-left: aliceblue solid 2px;
+    color: aliceblue;
+    font-weight: 700;
     float: right;
 }
 
@@ -54,12 +57,30 @@ button :hover {
 }
 
 #footer {
-    margin-bottom: 0;
+    /*margin-bottom: 0;*/
     background-color: #222222 !important;
     color: #FFFFFF;
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+#footer h6 {
+    /*margin-top: 0.5rem;*/
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    border-left: #FFFFFF solid 2px;
+    float: right;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+#footer h4 {
+    margin-top: 0.25rem;
+    float: left;
+    padding-right: 2rem;
+    margin-bottom: 0;
 }
 
 #footerContent {
@@ -177,16 +198,13 @@ input, textarea {
 #birthday,
 #colors_5,
 #balls,
-#time,
 #colors_15,
 #colors_25 {
     margin: 0 13% !important;
-    filter: grayscale(100%) !important;
 }
 
 #birthday .col,
 #colors_5 .col,
-#time .col,
 #balls .col,
 #colors_15 .col,
 #colors_25 .col {
@@ -219,6 +237,7 @@ input, textarea {
     transform: translateY(0);
 }
 
+#moreWrapper2,
 #moreWrapper {
     display: grid;
     justify-content: center;
@@ -226,9 +245,11 @@ input, textarea {
     grid-gap: 0;
     background-color: transparent;
     color: aliceblue;
+    margin-top: 6px;
     /*padding-left: 5%;*/
 }
 
+#moreWrapper2 .b,
 #moreWrapper .b {
     margin-right: 7px;
 }
@@ -243,18 +264,20 @@ input, textarea {
     padding-left: 2%;
 }
 
+#moreWrapper2.box,
 #moreWrapper.box,
 #wrapper .box {
     background-color: transparent;
     color: #fff;
     border-radius: 5px;
-    padding: 15px;
+    padding: 8px 15px 15px;
     font-size: 150%;
     justify-content: center;
     align-items: center;
 }
 
 #moreWrapper .box button,
+#moreWrapper2 .box button,
 #wrapper .box button {
     display: flex;
     justify-content: center;
@@ -268,6 +291,7 @@ input, textarea {
 }
 
 #moreWrapper .box .i,
+#moreWrapper2 .box .i,
 #wrapper .box .i {
     display: flex;
     justify-content: center;
@@ -280,29 +304,39 @@ input, textarea {
     margin-right: 7px !important;
 }
 
+#moreWrapper2 .i,
 #moreWrapper .i {
     color: aliceblue;
 }
 
+#gameLength,
 #monsterAmount {
     color: aliceblue;
-    font-size: 2.3em;
-    font-family: 'Bangers', cursive;
+    font-size: 1.5em;
+    font-family: 'Acme', sans-serif;
+    font-weight: 300;
+    padding-left: 4px;
 }
 
+#gameLength {
+    margin-right: 4px;
+}
+
+#moreWrapper2 .box,
 #moreWrapper .box {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+#moreWrapper2 .box button:hover,
 #moreWrapper .box button:hover {
     transform: translateY(0) !important;
 }
 
 #settingsView #range {
-    -webkit-appearance: none;
-    appearance: none;
+    /*-webkit-appearance: none;*/
+    /*appearance: none;*/
     background: #444444 !important;
     outline: none;
     opacity: 0.7;
@@ -311,7 +345,11 @@ input, textarea {
     margin-top: 6px;
     padding: 0 !important;
     border-bottom: none !important;
-    box-shadow: inset 0 1px 10px rgba(20, 20, 20, 0.56) !important;
+    /*box-shadow: inset 0 1px 10px rgba(20, 20, 20, 0.56) !important;*/
+}
+
+#range .custom-range {
+    background-color: #444444;
 }
 
 #settingsView .col {
@@ -326,17 +364,16 @@ input, textarea {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 17px;
+    height: 17px;
     background: aliceblue;
     cursor: pointer;
-    border-radius: 50%;
 }
 
 .slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #222222;
+    background: aliceblue;
     cursor: pointer;
 }
 
@@ -379,7 +416,7 @@ h5.welcomeTitle:hover {
     grid-template-columns: 15% 40% 15%;
     color: aliceblue;
     font-size: 1.3em;
-    margin-top: 1.5em;
+    margin-top: 1em;
 }
 
 #gameSettings {
@@ -422,4 +459,93 @@ h5.welcomeTitle:hover {
     text-decoration: none !important;
     color: #ffffff !important;
     background-color: #f3969a !important;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: cornflowerblue;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.modal-backdrop {
+    background-color: rgba(233,233,233,0.56);
+}
+
+.modal-body {
+    background: url("./resources/modal.png") no-repeat;
+    background-size: 100%;
+    padding-bottom: 2rem;
+    font-size: 1.2rem;
+    color: aliceblue;
+    text-align: center;
+}
+
+.modal-header {
+    background-color: transparent;
+    border: none;
+    padding-top: 3px;
+    padding-bottom: 8px;
+    color: aliceblue;
+}
+
+.modal-header button {
+    color: aliceblue;
+}
+
+.modal-header span {
+    padding-top: 3px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.modal-header button:hover {
+    color: aliceblue;
+}
+
+.modal-content {
+    background-color: #222222;
+    margin-top: 70%;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #444444;
+    border-radius: 1.3px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #444444;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #444444;
+    border-radius: 1.3px;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #444444;
+    border-radius: 2.6px;
+}
+
+#settingsView input{
+    border-bottom: none !important;
+    padding: 0;
 }
