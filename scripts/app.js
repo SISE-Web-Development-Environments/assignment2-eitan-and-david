@@ -5,7 +5,7 @@ var shape = new Object();
 // 10*10 array
 var eaten = false;
 var extraLifeCell;
-var pacmen_life = 2;
+var pacmen_life = 5;
 var board;
 var score;
 var pac_color;
@@ -46,6 +46,8 @@ var AC_ball_15 = "#3f657d";
 var AC_ball_25 = "#7d5d65";
 var AC_timeout = 60;
 var scoreToWin = 1000;
+var newGame = true;
+var food_remain;
 var AC_food_remain;
 // Settings Parameters
 const usersDB = [];
@@ -59,10 +61,13 @@ $(document).ready(function () {
 
 function Start() {
     board = new Array();
-    score = 0;
+    if (newGame) {
+        score = 0;
+        newGame = false;
+    }
     pac_color = "yellow";
     var cnt = 100;
-    var food_remain = parseInt(AC_ballsNumber);
+    food_remain = parseInt(AC_ballsNumber);
     var pacman_remain = 1;
     start_time = new Date();
     for (var i = 0; i < 10; i++) {
@@ -156,20 +161,22 @@ function Start() {
         false
     );
     interval = setInterval(UpdatePosition, 250);
-    monster1_interval = setInterval(updatePositionMonster1, 600);
+    monster1_interval = setInterval(updatePositionMonster1, 320);
     if (AC_monsterNumber == 2) {
-        monster2_interval = setInterval(updatePositionMonster2, 600);
+        monster2_interval = setInterval(updatePositionMonster2, 320);
     } else if (AC_monsterNumber == 3) {
-        monster2_interval = setInterval(updatePositionMonster2, 600);
-        monster3_interval = setInterval(updatePositionMonster3, 600);
+        monster2_interval = setInterval(updatePositionMonster2, 320);
+        monster3_interval = setInterval(updatePositionMonster3, 320);
     } else if (AC_monsterNumber == 4) {
-        monster2_interval = setInterval(updatePositionMonster2, 600);
-        monster3_interval = setInterval(updatePositionMonster3, 600);
-        monster4_interval = setInterval(updatePositionMonster4, 600);
+        monster2_interval = setInterval(updatePositionMonster2, 320);
+        monster3_interval = setInterval(updatePositionMonster3, 320);
+        monster4_interval = setInterval(updatePositionMonster4, 320);
     }
 }
 
 function boom() {
+    if (pacmen_life > 0)
+        document.getElementById("life" + pacmen_life).hidden = true;
     pacmen_life--;
     window.clearInterval(interval);
     window.clearInterval(monster1_interval);
@@ -368,12 +375,12 @@ function updatePositionMonster4() {
 function extraLifeToAdd() {
     eaten = true;
     pacmen_life++;
+    document.getElementById("life2").hidden = false;
     window.clearInterval(interval);
     window.clearInterval(monster1_interval);
     window.clearInterval(monster2_interval);
     window.clearInterval(monster3_interval);
     window.clearInterval(monster4_interval);
-    alert("extra life added!");
     Start();
 }
 /**
@@ -542,7 +549,7 @@ function gameOver() {
         if (score > scoreToWin) {
             alert("Winner!!!");
         } else {
-            alert("You are better then " + score + " points!");
+            alert("You are better than " + score + " points!");
         }
     } else if (pacmen_life === 0) {
         alert("loser!");
@@ -554,7 +561,17 @@ function gameOver() {
     window.clearInterval(monster2_interval);
     window.clearInterval(monster3_interval);
     window.clearInterval(monster4_interval);
+    document.getElementById("life1").hidden = false;
+    document.getElementById("life2").hidden = false;
+    document.getElementById("life3").hidden = false;
+    document.getElementById("life4").hidden = false;
+    document.getElementById("life5").hidden = false;
+    eaten = false;
+    newGame = true;
+    setBalls();
+    AC_ballsNumber = ballsNumber;
     var result = confirm("you are brave enough to play again?");
+    pacmen_life = 5;
     if (result === true) {
         Start();
     } else {
@@ -587,16 +604,19 @@ function UpdatePosition() {
             shape.i++;
         }
     }
-    if (shape.i === extraLife.i && shape.j === extraLife.j){
+    if (shape.i === extraLife.i && shape.j === extraLife.j && !eaten && pacmen_life === 1){
         extraLifeToAdd();
     }
     if (board[shape.i][shape.j] == 1) {
         score = score + 25;
+        AC_ballsNumber--;
     } else if (board[shape.i][shape.j] == 3) {
         score = score + 15;
+        AC_ballsNumber--;
     } else {
         if (board[shape.i][shape.j] == 6) {
             score = score + 5;
+            AC_ballsNumber--;
         }
     }
     board[shape.i][shape.j] = 2;
