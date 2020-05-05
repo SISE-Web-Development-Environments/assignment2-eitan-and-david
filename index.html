@@ -348,6 +348,10 @@
     <source src="./resources/pacman_gameover.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
+<audio id="loserSong" preload="auto">
+    <source src="./resources/Sad Trombone - Gaming Sound Effect (HD).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 <script>
     document.querySelectorAll('input[type=text], input[type=email]').forEach(
         input => {
@@ -392,14 +396,13 @@
         if (signedIn) {
             currentPage.setPageName("gameView");
             changeDiv();
-            // document.getElementById("chompS").play();
+            //document.getElementById("chompS").play();
             document.getElementById("play").blur();
             document.getElementById("life1").hidden = false;
             document.getElementById("life2").hidden = false;
             document.getElementById("life3").hidden = false;
             document.getElementById("life4").hidden = false;
             document.getElementById("life5").hidden = false;
-            gameOver();
             Start();
         } else {
             alert("Please sign in first");
