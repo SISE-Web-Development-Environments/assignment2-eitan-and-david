@@ -329,23 +329,23 @@
 <!-- REMOVE INPUT CACHE -->
 
 <audio id="deathS">
-    <source src="./resources/pacman_death.mp3" type="audio/mpeg">
+    <source src="resources/sound/pacman_death.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="beginningS">
-    <source src="./resources/pacman_beginning.mp3" type="audio/mpeg">
+    <source src="resources/sound/pacman_beginning.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="chompS">
-    <source src="./resources/pacman_chomp.mp3" type="audio/mpeg">
+    <source src="resources/sound/pacman_chomp.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="extraLifeS">
-    <source src="./resources/pacman_eatfruit.mp3" type="audio/mpeg">
+    <source src="resources/sound/pacman_eatfruit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="gameOverS">
-    <source src="./resources/pacman_gameover.mp3" type="audio/mpeg">
+    <source src="resources/sound/pacman_gameover.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <script>
@@ -399,7 +399,6 @@
             document.getElementById("life3").hidden = false;
             document.getElementById("life4").hidden = false;
             document.getElementById("life5").hidden = false;
-            gameOver();
             Start();
         } else {
             alert("Please sign in first");

@@ -18,15 +18,26 @@ var monster3_interval;
 var monster4_interval;
 var extraLife_interval;
 var monster1_image = new Image();
+var pacman_image = new Image();
+var pacman_imageU = new Image();
+var pacman_imageD = new Image();
+var pacman_imageL = new Image();
+var pacman_imageR = new Image();
 var monster2_image = new Image();
 var monster3_image = new Image();
 var monster4_image = new Image();
 var extraLife_image = new Image();
-extraLife_image.src = "./resources/pacman-clipart-cherry-7.png";
+var pacman_image_direction = 0;
+extraLife_image.src = "./resources/life.png";
 monster1_image.src = "./resources/blueGhost.png";
 monster2_image.src = "./resources/yellowGhost.png";
 monster3_image.src = "./resources/redGhost.png";
 monster4_image.src = "./resources/greenGhost.png";
+pacman_imageR.src = "./resources/player.png";
+pacman_imageL.src = "./resources/playerL.png";
+pacman_imageD.src = "./resources/playerD.png";
+pacman_imageU.src = "./resources/playerU.png";
+pacman_image = pacman_imageR;
 //monsters objects
 var monster1 = new Object();
 var monster2 = new Object();
@@ -78,8 +89,12 @@ function Start() {
                 (i === 3 && j === 3) ||
                 (i === 3 && j === 4) ||
                 (i === 3 && j === 5) ||
+                (i === 8 && j === 7) ||
+                (i === 8 && j === 5) ||
+                (i === 8 && j === 6) ||
+                (i === 7 && j === 7) ||
                 (i === 6 && j === 1) ||
-                (i === 6 && j === 2)
+                (i === 7 && j === 1)
             ) {
                 // put walls
                 board[i][j] = 4; // Wall = 4
@@ -161,16 +176,16 @@ function Start() {
         false
     );
     interval = setInterval(UpdatePosition, 250);
-    monster1_interval = setInterval(updatePositionMonster1, 320);
+    monster1_interval = setInterval(updatePositionMonster1, 450);
     if (AC_monsterNumber == 2) {
-        monster2_interval = setInterval(updatePositionMonster2, 320);
+        monster2_interval = setInterval(updatePositionMonster2, 450);
     } else if (AC_monsterNumber == 3) {
-        monster2_interval = setInterval(updatePositionMonster2, 320);
-        monster3_interval = setInterval(updatePositionMonster3, 320);
+        monster2_interval = setInterval(updatePositionMonster2, 450);
+        monster3_interval = setInterval(updatePositionMonster3, 450);
     } else if (AC_monsterNumber == 4) {
-        monster2_interval = setInterval(updatePositionMonster2, 320);
-        monster3_interval = setInterval(updatePositionMonster3, 320);
-        monster4_interval = setInterval(updatePositionMonster4, 320);
+        monster2_interval = setInterval(updatePositionMonster2, 450);
+        monster3_interval = setInterval(updatePositionMonster3, 450);
+        monster4_interval = setInterval(updatePositionMonster4, 450);
     }
 }
 
@@ -493,15 +508,16 @@ function Draw() {
 
 
             if (board[i][j] == 2) {
-                context.beginPath();
-                context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-                context.lineTo(center.x, center.y);
-                context.fillStyle = pac_color; //color
-                context.fill();
-                context.beginPath();
-                context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-                context.fillStyle = "black"; //color
-                context.fill();
+                // context.beginPath();
+                // context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                // context.lineTo(center.x, center.y);
+                // context.fillStyle = pac_color; //color
+                // context.fill();
+                // context.beginPath();
+                // context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+                // context.fillStyle = "black"; //color
+                // context.fill();
+                context.drawImage(pacman_image, center.x - 30, center.y - 30, canvas.width / 10, canvas.height / 10);
             } else if (board[i][j] == 1) {
                 context.beginPath();
                 context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
@@ -588,21 +604,25 @@ function UpdatePosition() {
         if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
             shape.j--;
         }
+        pacman_image = pacman_imageU;
     }
     if (x == 2) {
         if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
             shape.j++;
         }
+        pacman_image = pacman_imageD;
     }
     if (x == 3) {
         if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
             shape.i--;
         }
+        pacman_image = pacman_imageL;
     }
     if (x == 4) {
         if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
             shape.i++;
         }
+        pacman_image = pacman_imageR;
     }
     if (shape.i === extraLife.i && shape.j === extraLife.j && !eaten && pacmen_life === 1){
         extraLifeToAdd();
@@ -782,7 +802,6 @@ $(function () {
         var password = document.getElementById("loginForm_password").value;
         var username = document.getElementById("loginForm_username").value;
         var userExist = false;
-        alert(usersDB.length);
         usersDB.forEach(element => {
             if (element.userName === username && element.password === password) {
                 userExist = true;
@@ -841,6 +860,7 @@ function setBalls() {
 
 function setLength() {
     timeout = document.getElementById('gameLength').value;
+    // timeout = timeout.substring(0, timeout.length - 4);
 }
 
 function setColor(id) {
@@ -932,6 +952,9 @@ function settingsConfirm(e, isRandom) {
         return false;
     }
     if (!isRandom) {
+        ball_5 = document.getElementById('5pts').value;
+        ball_15 = document.getElementById('15pts').value;
+        ball_25 = document.getElementById('25pts').value;
         setBalls();
         setLength();
     }

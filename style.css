@@ -466,19 +466,21 @@ h5.welcomeTitle:hover {
     width: 25px;
     border-radius: 50%;
     display: inline-block;
-    margin-left: 6px;
+    margin-left: 16px;
+    margin-bottom: -3px;
 }
 
 #colors_5_bind {
-    background: #377d43
+    background: #377d43;
+    margin-left: 26px !important;
 }
 
 #colors_15_bind {
-    background: #3f657d
+    background: #3f657d;
 }
 
 #colors_25_bind {
-    background: #7d5d65
+    background: #7d5d65;
 }
 
 .modal-backdrop {
