@@ -19,25 +19,34 @@ var monster4_interval;
 var extraLife_interval;
 var monster1_image = new Image();
 var pacman_image = new Image();
+var pacman_greenImageU = new Image();
 var pacman_imageU = new Image();
+var pacman_greenImageD = new Image();
 var pacman_imageD = new Image();
+var pacman_greenImageL = new Image();
 var pacman_imageL = new Image();
+var pacman_greenImageR = new Image();
 var pacman_imageR = new Image();
 var monster2_image = new Image();
 var monster3_image = new Image();
 var monster4_image = new Image();
 var extraLife_image = new Image();
 var pacman_image_direction = 0;
-extraLife_image.src = "./resources/life.png";
+extraLife_image.src = "./resources/extraLife.png";
 monster1_image.src = "./resources/blueGhost.png";
 monster2_image.src = "./resources/yellowGhost.png";
 monster3_image.src = "./resources/redGhost.png";
 monster4_image.src = "./resources/greenGhost.png";
 pacman_imageR.src = "./resources/player.png";
+pacman_greenImageR.src = "./resources/greenPlayer.png";
 pacman_imageL.src = "./resources/playerL.png";
+pacman_greenImageL.src = "./resources/greenPlayerL.png";
 pacman_imageD.src = "./resources/playerD.png";
+pacman_greenImageD.src = "./resources/greenPlayerD.png";
 pacman_imageU.src = "./resources/playerU.png";
+pacman_greenImageU.src = "./resources/greenPlayerU.png";
 pacman_image = pacman_imageR;
+var green = false;
 //monsters objects
 var monster1 = new Object();
 var monster2 = new Object();
@@ -56,7 +65,7 @@ var AC_ball_5 = "#377d43";
 var AC_ball_15 = "#3f657d";
 var AC_ball_25 = "#7d5d65";
 var AC_timeout = 60;
-var scoreToWin = 1000;
+var scoreToWin = 540;
 var newGame = true;
 var food_remain;
 var AC_food_remain;
@@ -74,6 +83,9 @@ function Start() {
     board = new Array();
     if (newGame) {
         score = 0;
+        pacmen_life = 5;
+        AC_ballsNumber = document.getElementById("range").value;
+        green = false;
         newGame = false;
     }
     pac_color = "yellow";
@@ -86,15 +98,11 @@ function Start() {
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
         for (var j = 0; j < 10; j++) {
             if (
-                (i === 3 && j === 3) ||
-                (i === 3 && j === 4) ||
-                (i === 3 && j === 5) ||
-                (i === 8 && j === 7) ||
-                (i === 8 && j === 5) ||
-                (i === 8 && j === 6) ||
-                (i === 7 && j === 7) ||
-                (i === 6 && j === 1) ||
-                (i === 7 && j === 1)
+                (i === 2 && j === 3) ||
+                (i === 2 && j === 4) ||
+                (i === 2 && j === 5) ||
+                (i === 6 && j === 4) ||
+                (i === 7 && j === 4)
             ) {
                 // put walls
                 board[i][j] = 4; // Wall = 4
@@ -202,7 +210,9 @@ function boom() {
     if (pacmen_life === 0) {
         gameOver();
     } else {
-        window.alert("hit!");
+        // window.alert("hit!");
+        $('#hit').modal('show');
+        setTimeout(function() {$('#hit').modal('hide');}, 1000);
         Start();
     }
 }
@@ -398,54 +408,7 @@ function extraLifeToAdd() {
     window.clearInterval(monster4_interval);
     Start();
 }
-/**
-function updateExtraLifePosition() {
-    var delta_y = extraLife.i - shape.i;
-    var delta_x = extraLife.j - shape.j;
-    if (Math.abs(delta_x) > Math.abs(delta_y)){
-        if (delta_x > 0){
-            if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
-                extraLife.j++;
-            }else if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
-                extraLife.i++;
-            }else{
-                extraLife.i--;
-            }
-        }else{
-            if (extraLife.j >0 && board[extraLife.i][extraLife.j - 1] != 4){
-                extraLife.j--;
-            }else if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
-                extraLife.i++;
-            }else{
-                extraLife.i--;
-            }
-        }
-    }else{
-        if (delta_y > 0){
-            if (extraLife.i < 9 && board[extraLife.i + 1][extraLife.j] != 4){
-                extraLife.i++;
-            }else if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
-                extraLife.j++;
-            }else{
-                extraLife.j--;
-            }
-        }else{
-            if (extraLife.i > 0 && board[extraLife.i - 1][extraLife.j] != 4){
-                extraLife.j--;
-            }else if (extraLife.j < 9 && board[extraLife.i][extraLife.j + 1] != 4){
-                extraLife.j++;
-            }else{
-                extraLife.j--;
-            }
-        }
-    }
-    if (extraLife.i === shape.i && extraLife.j === shape.j) {
-        extraLifeToAdd();
-    } else {
-        Draw();
-    }
-}
-**/
+
 function findRandomEmptyCell(board) {
     var i = Math.floor(Math.random() * 9 + 1);
     var j = Math.floor(Math.random() * 9 + 1);
@@ -605,24 +568,28 @@ function UpdatePosition() {
             shape.j--;
         }
         pacman_image = pacman_imageU;
+        if (green) pacman_image = pacman_greenImageU;
     }
     if (x == 2) {
         if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
             shape.j++;
         }
         pacman_image = pacman_imageD;
+        if (green) pacman_image = pacman_greenImageD;
     }
     if (x == 3) {
         if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
             shape.i--;
         }
         pacman_image = pacman_imageL;
+        if (green) pacman_image = pacman_greenImageL;
     }
     if (x == 4) {
         if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
             shape.i++;
         }
         pacman_image = pacman_imageR;
+        if (green) pacman_image = pacman_greenImageR;
     }
     if (shape.i === extraLife.i && shape.j === extraLife.j && !eaten && pacmen_life === 1){
         extraLifeToAdd();
@@ -645,8 +612,8 @@ function UpdatePosition() {
     if (time_elapsed > AC_timeout) {
         gameOver();
     }
-    if (score >= 50 && time_elapsed <= 10) {
-        pac_color = "green";
+    if (score >= 0.8*scoreToWin) {
+        green = true;
     }
     if (score > scoreToWin) {
         gameOver();
@@ -676,10 +643,18 @@ var currentPage = {
             window.clearInterval(monster3_interval);
             window.clearInterval(monster4_interval);
         }
+        if (newName === "settingsView") {
+            AC_timeout = parseInt(document.getElementById("gameLength").textContent.replace(" sec",""));
+            timeout = AC_timeout;
+        }
         this.oldPageName = this.newPageName;
         this.newPageName = newName;
     }
 };
+
+function setNewGame(){
+    newGame = true;
+}
 
 var currentUser = {
     userName: undefined,
@@ -755,7 +730,6 @@ $(function () {
             $("#email_error_message").show();
             error_email = true;
         }
-
     }
 
     $("#registerForm").submit(function (e) {
@@ -817,6 +791,8 @@ $(function () {
             document.getElementById("logout").hidden = false;
             document.getElementById("logIn").hidden = true;
             document.getElementById("register").hidden = true;
+            document.getElementById("settings").hidden = false;
+            document.getElementById("play").hidden = false;
         } else {
             alert("Incorrect user or password");
             e.preventDefault();
@@ -827,6 +803,9 @@ $(function () {
 
 function logOut() {
     document.getElementById("logout").hidden = true;
+    document.getElementById("mainMenu").hidden = true;
+    document.getElementById("settings").hidden = true;
+    document.getElementById("play").hidden = true;
     document.getElementById("logIn").hidden = false;
     document.getElementById("register").hidden = false;
     signedIn = false;
@@ -854,13 +833,12 @@ function bindSettings(variable, target) {
     document.getElementById(target).style.backgroundColor = variable;
 }
 
-function setBalls() {
-    ballsNumber = parseInt(document.getElementById('range').value);
+function bindIntSettings(variable, target) {
+    document.getElementById(target).textContent = variable;
 }
 
-function setLength() {
-    timeout = document.getElementById('gameLength').value;
-    // timeout = timeout.substring(0, timeout.length - 4);
+function setBalls() {
+    ballsNumber = parseInt(document.getElementById('range').value);
 }
 
 function setColor(id) {
@@ -930,13 +908,13 @@ function commitChanges() {
     bindSettings(AC_ball_25, "colors_25_bind");
     AC_ballsNumber = ballsNumber;
     AC_monsterNumber = monsterNumber;
-    bindSettings(AC_monsterNumber, "monsters_bind");
     AC_moveDown = moveDown;
     AC_moveUp = moveUp;
     AC_moveRight = moveRight;
     AC_moveLeft = moveLeft;
     AC_timeout = timeout;
-    bindSettings(AC_timeout, "length_bind");
+    bindIntSettings(AC_timeout, "length_bind");
+    bindIntSettings(AC_monsterNumber, "monsters_bind");
 }
 
 function settingsConfirm(e, isRandom) {
@@ -956,7 +934,6 @@ function settingsConfirm(e, isRandom) {
         ball_15 = document.getElementById('15pts').value;
         ball_25 = document.getElementById('25pts').value;
         setBalls();
-        setLength();
     }
     commitChanges();
     alert("Changes Updated Successfully!");

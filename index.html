@@ -36,7 +36,7 @@
 <!-- Menu -->
 <div id="mainMenu" hidden>
     <div align="center">
-        <button type="button" id="play">
+        <button type="button" id="play" hidden>
             <img src="./resources/yellowGhost.png" alt="" width="70" height="70">
             <br>
             <h5>PLAY</h5>
@@ -51,7 +51,7 @@
             <br>
             <h5>REGISTER</h5>
         </button>
-        <button type="button" id="settings">
+        <button type="button" id="settings" hidden>
             <img src="./resources/redGhost.png" alt="" width="70" height="70">
             <br>
             <h5>SETTINGS</h5>
@@ -84,9 +84,24 @@
                 <div class="modal-body">
                     Created by Eitan Platok and David Fadida
                     <br>
-                    JQuery Plugin: XXX X.0.1
+                    JQuery Plugin: JQuery 3.4.1
                     <br>
                     Template: Bootstrap 4.1
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hit	-->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="hit" role="dialog">
+        <div class="modal-dialog" id="modalStyleHit">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    HIT
                 </div>
             </div>
         </div>
@@ -139,6 +154,7 @@
         15 Points Ball <span class="dot" id="colors_15_bind"></span>
         <br>
         25 Points Ball <span class="dot" id="colors_25_bind"></span>
+        <br>
         <br>
         Monsters: <label id="monsters_bind">1</label>
         <br>
@@ -399,9 +415,11 @@
             document.getElementById("life3").hidden = false;
             document.getElementById("life4").hidden = false;
             document.getElementById("life5").hidden = false;
+            setNewGame();
             Start();
         } else {
             alert("Please sign in first");
+            $('#myModal').modal('show');
         }
     });
 
