@@ -39,20 +39,22 @@ var monster2_image = new Image();
 var monster3_image = new Image();
 var monster4_image = new Image();
 var extraLife_image = new Image();
+var extraPoints_image = new Image();
 var pacman_image_direction = 0;
 extraLife_image.src = "./resources/extraLife.png";
-monster1_image.src = "./resources/blueGhost.png";
-monster2_image.src = "./resources/yellowGhost.png";
-monster3_image.src = "./resources/redGhost.png";
-monster4_image.src = "./resources/greenGhost.png";
-pacman_imageR.src = "./resources/player.png";
-pacman_greenImageR.src = "./resources/greenPlayer.png";
-pacman_imageL.src = "./resources/playerL.png";
-pacman_greenImageL.src = "./resources/greenPlayerL.png";
-pacman_imageD.src = "./resources/playerD.png";
-pacman_greenImageD.src = "./resources/greenPlayerD.png";
-pacman_imageU.src = "./resources/playerU.png";
-pacman_greenImageU.src = "./resources/greenPlayerU.png";
+monster1_image.src = "./resources/monster/blueGhost.png";
+monster2_image.src = "./resources/monster/yellowGhost.png";
+monster3_image.src = "./resources/monster/redGhost.png";
+monster4_image.src = "./resources/monster/greenGhost.png";
+pacman_imageR.src = "./resources/player/player.png";
+pacman_greenImageR.src = "./resources/player/greenPlayer.png";
+pacman_imageL.src = "./resources/player/playerL.png";
+pacman_greenImageL.src = "./resources/player/greenPlayerL.png";
+pacman_imageD.src = "./resources/player/playerD.png";
+pacman_greenImageD.src = "./resources/player/greenPlayerD.png";
+pacman_imageU.src = "./resources/player/playerU.png";
+pacman_greenImageU.src = "./resources/player/greenPlayerU.png";
+extraPoints_image.src = "./resources/movingPoints.png";
 pacman_image = pacman_imageR;
 var green = false;
 //monsters objects
@@ -546,7 +548,7 @@ function Draw() {
                 context.drawImage(extraLife_image, lifeCenter.x - 30, lifeCenter.y - 30, canvas.width / 10, canvas.height / 10);
             }
             if (!special_eaten){
-                context.drawImage(extraLife_image, specialCenter.x - 30, specialCenter.y - 30, canvas.width / 10, canvas.height / 10);
+                context.drawImage(extraPoints_image, specialCenter.x - 30, specialCenter.y - 30, canvas.width / 10, canvas.height / 10);
             }
 
         }

@@ -37,32 +37,32 @@
 <div id="mainMenu" hidden>
     <div align="center">
         <button type="button" id="play" hidden>
-            <img src="./resources/yellowGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/yellowGhost.png" alt="" width="70" height="70">
             <br>
             <h5>PLAY</h5>
         </button>
         <button type="button" id="logIn">
-            <img src="./resources/greenGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/greenGhost.png" alt="" width="70" height="70">
             <br>
             <h5>LOGIN</h5>
         </button>
         <button type="button" id="register">
-            <img src="./resources/blueGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/blueGhost.png" alt="" width="70" height="70">
             <br>
             <h5>REGISTER</h5>
         </button>
         <button type="button" id="settings" hidden>
-            <img src="./resources/redGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/redGhost.png" alt="" width="70" height="70">
             <br>
             <h5>SETTINGS</h5>
         </button>
         <button type="button" data-toggle="modal" data-target="#myModal">
-            <img src="./resources/brownGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/brownGhost.png" alt="" width="70" height="70">
             <br>
             <h5>ABOUT</h5>
         </button>
         <button type="button" id="logout" onclick="logOut()" hidden>
-            <img src="./resources/blueGhost.png" alt="" width="70" height="70">
+            <img src="resources/monster/blueGhost.png" alt="" width="70" height="70">
             <br>
             <h5>LOG OUT</h5>
         </button>
@@ -133,7 +133,7 @@
     </div>
     <div id="gameSettings">
         <div id="avatar">
-            <img src="./resources/brownGhost.png" alt="" width="50">
+            <img src="resources/monster/brownGhost.png" alt="" width="50">
             David Fadida
         </div>
         <div id="score">
@@ -169,7 +169,7 @@
     <br>
     <br>
     <form id="loginForm" class="form-signin container" style="width: 20%">
-        <img src="./resources/greenGhost.png" alt="" width="100" height="100">
+        <img src="resources/monster/greenGhost.png" alt="" width="100" height="100">
         <h2 align="center">SIGN IN</h2>
         <label for="loginForm_username" class="sr-only">Email address</label>
         <input type="text" id="loginForm_username" class="form-control" placeholder="User Name" required=""
@@ -185,7 +185,7 @@
 <div id="registerView" hidden>
     <br>
     <form id="registerForm" class="container" style="width: 20%">
-        <img src="./resources/blueGhost.png" alt="" width="100" height="100">
+        <img src="resources/monster/blueGhost.png" alt="" width="100" height="100">
         <h2>REGISTER</h2>
         <input id="form_username" type="text" class="form-control" placeholder="User Name" required>
         <input id="form_password" type="password" class="form-control" placeholder="Password" required><span
@@ -231,7 +231,7 @@
     <br>
     <form class="container" style="width: 40%">
         <div style="width: 50%; margin-left: 25%">
-            <img align="center" src="./resources/redGhost.png" alt="" width="100" height="100">
+            <img align="center" src="resources/monster/redGhost.png" alt="" width="100" height="100">
             <h2>SETTINGS</h2>
         </div>
         <div class="row">
@@ -259,7 +259,7 @@
                         <button id="button2" onclick="lessMonsters(event)"><i class="fas fa-minus"></i></button>
                     </div>
                     <div class="box b">
-                        <img src="./resources/brownGhost.png" height="50" width="50" alt="">
+                        <img src="resources/monster/brownGhost.png" height="50" width="50" alt="">
                         <span id="monsterAmount">x 1</span>
                     </div>
                     <div class="box f">
@@ -347,27 +347,27 @@
 <!-- REMOVE INPUT CACHE -->
 
 <audio id="deathS">
-    <source src="resources/sound/pacman_death.mp3" type="audio/mpeg">
+    <source src="./resources/sound/pacman_death.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="beginningS">
-    <source src="resources/sound/pacman_beginning.mp3" type="audio/mpeg">
+    <source src="./resources/sound/pacman_beginning.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="chompS">
-    <source src="resources/sound/pacman_chomp.mp3" type="audio/mpeg">
+    <source src="./resources/sound/pacman_chomp.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="extraLifeS">
-    <source src="resources/sound/pacman_eatfruit.mp3" type="audio/mpeg">
+    <source src="./resources/sound/pacman_eatfruit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="gameOverS">
-    <source src="resources/sound/pacman_gameover.mp3" type="audio/mpeg">
+    <source src="./resources/sound/pacman_gameover.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <audio id="loserSong" preload="auto">
-    <source src="./resources/Sad Trombone - Gaming Sound Effect (HD).mp3" type="audio/mpeg">
+    <source src="./resources/sound/Sad%20Trombone%20-%20Gaming%20Sound%20Effect%20(HD).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 <script>
