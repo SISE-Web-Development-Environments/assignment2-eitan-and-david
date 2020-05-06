@@ -387,6 +387,11 @@ input, textarea {
     margin-top: 25% !important;
 }
 
+#Welcome>img{
+    margin-top: -15% !important;
+    margin-bottom: -5% !important;
+}
+
 h5.welcomeTitle,
 h5.welcomeTitle:hover {
     color: aliceblue !important;
@@ -426,6 +431,13 @@ h5.welcomeTitle:hover {
 
 #gameSettings h1 {
     font-size: 1.6rem;
+}
+
+#afterLogin {
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    margin-top: -2%;
 }
 
 #score {

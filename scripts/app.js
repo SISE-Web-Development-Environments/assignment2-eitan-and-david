@@ -5,13 +5,13 @@ var shape = new Object();
 // 10*10 array
 var eaten = false;
 var special_eaten = false;
-var beginningSong = new Audio("./resources/pacman_beginning.mp3");
-var chompSong = new Audio("./resources/pacman_chomp.mp3");
-var deathSong = new Audio("./resources/pacman_death.mp3");
-var gameOverSong = new Audio("./resources/pacman_gameover.mp3");
-var winSong = new Audio("./resources/pacman_win.mp3");
-var extraLifeSong = new Audio("./resources/pacman_eatfruit.mp3");
-beginningSong.loop = true;
+var beginningSong = new Audio("./resources/sound/pacman_beginning.mp3");
+var chompSong = new Audio("./resources/sound/pacman_chomp.mp3");
+var deathSong = new Audio("./resources/sound/pacman_death.mp3");
+var gameOverSong = new Audio("./resources/sound/pacman_gameover.mp3");
+var winSong = new Audio("./resources/sound/pacman_win.mp3");
+var extraLifeSong = new Audio("./resources/sound/pacman_eatfruit.mp3");
+beginningSong.loop = false;
 var extraLifeCell;
 var pacmen_life = 5;
 var board;
@@ -133,7 +133,7 @@ function Start() {
                     monster2.j = 0;
                     monster3.i = 0;
                     monster3.j = 9;
-                } else if(AC_monsterNumber === 4) {
+                } else if (AC_monsterNumber === 4) {
                     monster2.i = 0;
                     monster2.j = 0;
                     monster3.i = 0;
@@ -211,7 +211,7 @@ function Start() {
     var emptyCell = findRandomEmptyCell(board);
     specialPts.i = emptyCell[0];
     specialPts.j = emptyCell[1];
-    specialPts_interval = setInterval(update_50pts_Position,700);
+    specialPts_interval = setInterval(update_50pts_Position, 1050);
 }
 
 function boom() {
@@ -233,7 +233,9 @@ function boom() {
     } else {
         // window.alert("hit!");
         $('#hit').modal('show');
-        setTimeout(function() {$('#hit').modal('hide');}, 1000);
+        setTimeout(function () {
+            $('#hit').modal('hide');
+        }, 1000);
         Start();
     }
 }
@@ -542,12 +544,12 @@ function Draw() {
             if (monster4.i == i && monster4.j == j && AC_monsterNumber > 3) {
                 context.drawImage(monster4_image, m_center4.x - 30, m_center4.y - 30, canvas.width / 10, canvas.height / 10);
             }
-            if (!eaten && pacmen_life === 1){
+            if (!eaten && pacmen_life === 1) {
                 extraLife.i = extraLifeCell[0];
                 extraLife.j = extraLifeCell[1];
                 context.drawImage(extraLife_image, lifeCenter.x - 30, lifeCenter.y - 30, canvas.width / 10, canvas.height / 10);
             }
-            if (!special_eaten){
+            if (!special_eaten) {
                 context.drawImage(extraPoints_image, specialCenter.x - 30, specialCenter.y - 30, canvas.width / 10, canvas.height / 10);
             }
 
@@ -597,7 +599,7 @@ function gameOver() {
     } else {
         gameOverSong.play();
         window.alert("hope you enjoyed our game! see you soon :)");
-        currentPage.setPageName("Welcome");
+        currentPage.setPageName("afterLogin");
         changeDiv();
     }
 }
@@ -633,10 +635,10 @@ function UpdatePosition() {
         pacman_image = pacman_imageR;
         if (green) pacman_image = pacman_greenImageR;
     }
-    if (shape.i === extraLife.i && shape.j === extraLife.j && !eaten && pacmen_life === 1){
+    if (shape.i === extraLife.i && shape.j === extraLife.j && !eaten && pacmen_life === 1) {
         extraLifeToAdd();
     }
-    if (shape.i === specialPts.i && shape.j === specialPts.j && !special_eaten){
+    if (shape.i === specialPts.i && shape.j === specialPts.j && !special_eaten) {
         score = score + 50;
         special_eaten = true;
         chompSong.pause();
@@ -664,7 +666,7 @@ function UpdatePosition() {
     if (time_elapsed > AC_timeout) {
         gameOver();
     }
-    if (score >= 0.8*scoreToWin) {
+    if (score >= 0.8 * scoreToWin) {
         green = true;
     }
     if (score > scoreToWin) {
@@ -698,7 +700,7 @@ var currentPage = {
             beginningSong.pause();
         }
         if (newName === "settingsView") {
-            AC_timeout = parseInt(document.getElementById("gameLength").textContent.replace(" sec",""));
+            AC_timeout = parseInt(document.getElementById("gameLength").textContent.replace(" sec", ""));
             timeout = AC_timeout;
         }
         this.oldPageName = this.newPageName;
@@ -706,7 +708,7 @@ var currentPage = {
     }
 };
 
-function setNewGame(){
+function setNewGame() {
     newGame = true;
 }
 
@@ -767,7 +769,7 @@ $(function () {
     function lname_check() {
         var result = undefined;
         if (!/^[a-zA-Z\s]+$/.test($('#form_lName').val())) {
-            $("#lname_error_message").html("must contain only letters");
+            $("#lname_error_message").html("must contain only letters <br>");
             $("#lname_error_message").show();
             error_lname = true;
         } else {
@@ -839,7 +841,7 @@ $(function () {
         if (userExist) {
             alert("Signed in successfully!!");
             e.preventDefault();
-            currentPage.setPageName("Welcome");
+            currentPage.setPageName("afterLogin");
             changeDiv();
             signedIn = true;
             document.getElementById("logout").hidden = false;
@@ -847,6 +849,7 @@ $(function () {
             document.getElementById("register").hidden = true;
             document.getElementById("settings").hidden = false;
             document.getElementById("play").hidden = false;
+            // document.getElementById("afterLogin").hidden = false;
         } else {
             alert("Incorrect user or password");
             e.preventDefault();
@@ -991,7 +994,7 @@ function settingsConfirm(e, isRandom) {
     }
     commitChanges();
     alert("Changes Updated Successfully!");
-    currentPage.setPageName("Welcome");
+    currentPage.setPageName("afterLogin");
     changeDiv();
     return true;
 }
@@ -1013,10 +1016,10 @@ function test(code, id) {
     }
 }
 
-function findRandomCellForSpecialPts(board){
+function findRandomCellForSpecialPts(board) {
     var i = Math.floor(Math.random() * 9 + 1);
     var j = Math.floor(Math.random() * 9 + 1);
-    while (board[i][j] === 4 || board[i][j]===2) {
+    while (board[i][j] === 4 || board[i][j] === 2) {
         i = Math.floor(Math.random() * 9 + 1);
         j = Math.floor(Math.random() * 9 + 1);
     }

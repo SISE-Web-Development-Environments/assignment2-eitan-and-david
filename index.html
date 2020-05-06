@@ -111,9 +111,7 @@
 <!-- Content -->
 
 <div id="Welcome" align="center">
-    <span>
-        <br><br><br>
-    </span>
+    <img src="./resources/main.png" width="950" class="center"><br>
     <button type="button" id="welcome_register">
         <img src="./resources/register.png" alt="" width="300px">
         <h5 class="welcomeTitle">REGISTER</h5>
@@ -122,6 +120,10 @@
         <img src="./resources/login.png" alt="" width="300px">
         <h5 class="welcomeTitle">LOGIN</h5>
     </button>
+</div>
+
+<div id="afterLogin" align="center" class="container" hidden>
+    <img src="./resources/welcome.png" width="950" class="center">
 </div>
 
 <div id="gameView" align="center" hidden>
@@ -189,13 +191,13 @@
         <h2>REGISTER</h2>
         <input id="form_username" type="text" class="form-control" placeholder="User Name" required>
         <input id="form_password" type="password" class="form-control" placeholder="Password" required><span
-            id="password_error_message"></span>
+            id="password_error_message" style="color: red"></span>
         <input id="form_email" type="text" class="form-control" placeholder="Email" required><span
-            id="email_error_message"></span>
+            id="email_error_message" style="color: red"></span>
         <input id="form_fName" type="text" class="form-control" placeholder="First Name" required><span
-            id="fname_error_message"></span>
+            id="fname_error_message" style="color: red"></span>
         <input id="form_lName" type="text" class="form-control" placeholder="Last Name" required><span
-            id="lname_error_message"></span>
+            id="lname_error_message" style="color: red"></span>
         Birth Day
         <div class="row align-items-center mt-4" id="birthday">
             <div class="col">
@@ -283,7 +285,8 @@
                         5 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="5pts" onchange="setColor(1)" value="#377d43">
+                        <input type="color" class="form-control" required id="5pts" onchange="setColor(1)"
+                               value="#377d43">
                     </div>
                 </div>
                 <div class="row align-items-center mt-4" id="colors_15">
@@ -291,7 +294,8 @@
                         15 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="15pts" onchange="setColor(2)" value="#3f657d">
+                        <input type="color" class="form-control" required id="15pts" onchange="setColor(2)"
+                               value="#3f657d">
                     </div>
                 </div>
                 <div class="row align-items-center mt-4" id="colors_25">
@@ -299,7 +303,8 @@
                         25 Points ball :
                     </div>
                     <div class="col">
-                        <input type="color" class="form-control" required id="25pts" onchange="setColor(3)" value="#7d5d65">
+                        <input type="color" class="form-control" required id="25pts" onchange="setColor(3)"
+                               value="#7d5d65">
                     </div>
                 </div>
                 <!--                <h4>Game Configuration</h4>-->
