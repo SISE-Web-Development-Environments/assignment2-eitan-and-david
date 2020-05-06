@@ -382,6 +382,8 @@ input, textarea {
     transition-duration: 1s;
 }
 
+#usernameBinding {
+}
 
 #welcome {
     margin-top: 25% !important;
@@ -446,7 +448,6 @@ h5.welcomeTitle:hover {
     padding-top: 1em;
     margin-bottom: 1em;
     font-size: 1.1em;
-    font-family: 'Acme', sans-serif;
 }
 
 #score img {
@@ -457,12 +458,10 @@ h5.welcomeTitle:hover {
     vertical-align: middle;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    size: 40px;
 }
 
 #avatar {
-    border-bottom: aliceblue 1px solid;
-    border-top: aliceblue 1px solid;
     margin-top: 1em;
     margin-bottom: 1em;
 }

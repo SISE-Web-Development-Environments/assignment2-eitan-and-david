@@ -40,6 +40,8 @@ var monster3_image = new Image();
 var monster4_image = new Image();
 var extraLife_image = new Image();
 var extraPoints_image = new Image();
+var wall = new Image();
+wall.src = "./resources/wall.png";
 var pacman_image_direction = 0;
 extraLife_image.src = "./resources/extraLife.png";
 monster1_image.src = "./resources/monster/blueGhost.png";
@@ -517,10 +519,11 @@ function Draw() {
                 context.fillStyle = AC_ball_25; //color
                 context.fill();
             } else if (board[i][j] == 4) {
-                context.beginPath();
-                context.rect(center.x - 30, center.y - 30, 60, 60);
-                context.fillStyle = "grey"; //color
-                context.fill();
+                // context.beginPath();
+                // context.rect(center.x - 30, center.y - 30, 60, 60);
+                // context.fillStyle = "grey"; //color
+                // context.fill();
+                context.drawImage(wall, i*60, j*60 , canvas.width / 10, canvas.height / 10);
             } else if (board[i][j] == 3) {
                 context.beginPath();
                 context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
@@ -849,7 +852,7 @@ $(function () {
             document.getElementById("register").hidden = true;
             document.getElementById("settings").hidden = false;
             document.getElementById("play").hidden = false;
-            // document.getElementById("afterLogin").hidden = false;
+            document.getElementById("usernameBinding").textContent ="User  :  " + currentUser.userName;
         } else {
             alert("Incorrect user or password");
             e.preventDefault();
