@@ -421,7 +421,11 @@ h5.welcomeTitle:hover {
 
 #gameSettings {
     background-color: rgba(34, 34, 34, 0.51);
-    box-shadow: 0 1px 10px rgba(20, 20, 20, 0.56) !important;
+    /*box-shadow: 0 1px 10px rgba(20, 20, 20, 0.56) !important;*/
+}
+
+#gameSettings h1 {
+    font-size: 1.6rem;
 }
 
 #score {
@@ -579,4 +583,8 @@ input[type=range]::-ms-fill-lower {
 #settingsView input {
     border-bottom: none !important;
     padding: 0;
+}
+
+canvas {
+    box-shadow: 0 0 10px rgb(33, 33, 33);
 }

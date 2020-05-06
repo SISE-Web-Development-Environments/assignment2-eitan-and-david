@@ -527,13 +527,17 @@ function gameOver() {
     if (time_elapsed > AC_timeout) {
         if (score > scoreToWin) {
             alert("Winner!!!");
+            $('#winnerAlert').modal('show');
         } else {
             alert("You are better than " + score + " points!");
+            $('#Alert').modal('show');
         }
     } else if (pacmen_life === 0) {
         alert("loser!");
+        $('#hit').modal('show');
     } else {
         alert("Winner!!!");
+        $('#winnerAlert').modal('show');
     }
     window.clearInterval(interval);
     window.clearInterval(monster1_interval);
