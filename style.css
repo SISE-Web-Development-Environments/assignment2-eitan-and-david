@@ -504,6 +504,7 @@ h5.welcomeTitle:hover {
     background-color: rgba(233, 233, 233, 0.56);
 }
 
+#winnerAlert .modal-body,
 #hit .modal-body {
     background: transparent;
     font-size: 4rem;
@@ -518,6 +519,17 @@ h5.welcomeTitle:hover {
     border: none;
     width: 30%;
     margin-left: 40%;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+#winnerAlert .modal-content {
+    background: rgba(34, 34, 34, 0.67);
+    border: none;
+    width: 80%;
+    margin-left: 10%;
 }
 
 .modal-body {

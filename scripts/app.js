@@ -565,16 +565,13 @@ function gameOver() {
     deathSong.pause();
     if (time_elapsed > AC_timeout) {
         if (score > scoreToWin) {
-            alert("Winner!!!");
             $('#winnerAlert').modal('show');
         } else {
             alert("You are better than " + score + " points!");
-            $('#Alert').modal('show');
         }
     } else if (pacmen_life === 0) {
         document.getElementById("loserSong").play();
         alert("loser!");
-        $('#hit').modal('show');
     } else {
         winSong.play();
         window.alert("Winner!!!");
@@ -819,7 +816,7 @@ $(function () {
                 ;
                 alert("Registered successfully!!");
                 e.preventDefault();
-                currentPage.setPageName("Welcome");
+                currentPage.setPageName("loginView");
                 changeDiv();
             }
         } else {
