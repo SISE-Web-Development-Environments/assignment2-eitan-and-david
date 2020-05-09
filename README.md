@@ -2,7 +2,7 @@
 
 created by David Fadida 208161802 and Eitan Platok
 
-game link: https://sise-web-development-environments.github.io/assignment2-hod-shoham
+game link: https://sise-web-development-environments.github.io/assignment2-eitan-and-david
 
 # New Features:
 
